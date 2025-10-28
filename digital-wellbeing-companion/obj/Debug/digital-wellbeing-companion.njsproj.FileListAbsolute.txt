@@ -1,0 +1,3 @@
+C:\Users\Will\Documents\GitHub\COMP-3000\digital-wellbeing-companion\obj\Debug\digital-wellbeing-companion.njsproj.AssemblyReference.cache
+C:\Users\Will\Documents\GitHub\COMP-3000\digital-wellbeing-companion\obj\Debug\digital-wellbeing-companion.njsproj.CoreCompileInputs.cache
+C:\Users\Will\Documents\GitHub\COMP-3000\digital-wellbeing-companion\bin\Microsoft.NodejsTools.WebRole.dll
