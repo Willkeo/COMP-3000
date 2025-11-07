@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <PackageJsonName Condition="$(PackageJsonName) == ''">digital-wellbeing-companion</PackageJsonName>
+    <PackageJsonVersion Condition="$(PackageJsonVersion) == ''">0.0.1</PackageJsonVersion>
+    <PackageJsonDescription Condition="$(PackageJsonDescription) == ''">digital-wellbeing-companion</PackageJsonDescription>
+    <PackageJsonMain Condition="$(PackageJsonMain) == ''">./dist/main.js</PackageJsonMain>
+    <PackageJsonAuthorName Condition="$(PackageJsonAuthorName) == ''">Will Keogh</PackageJsonAuthorName>
+    <PackageJsonScriptsBuild Condition="$(PackageJsonScriptsBuild) == ''">tsc</PackageJsonScriptsBuild>
+    <PackageJsonScriptsClean Condition="$(PackageJsonScriptsClean) == ''">rimraf dist &amp;&amp; tsc --build --clean</PackageJsonScriptsClean>
+    <PackageJsonScriptsStart Condition="$(PackageJsonScriptsStart) == ''">npm run build &amp;&amp; electron .</PackageJsonScriptsStart>
+    <PackageJsonScriptsDev Condition="$(PackageJsonScriptsDev) == ''">tsc --watch &amp; electron .</PackageJsonScriptsDev>
+    <PackageJsonDevdependenciesTypesNode Condition="$(PackageJsonDevdependenciesTypesNode) == ''">^20.11.30</PackageJsonDevdependenciesTypesNode>
+    <PackageJsonDevdependenciesTypescriptEslintEslintPlugin Condition="$(PackageJsonDevdependenciesTypescriptEslintEslintPlugin) == ''">^5.33.0</PackageJsonDevdependenciesTypescriptEslintEslintPlugin>
+    <PackageJsonDevdependenciesTypescriptEslintParser Condition="$(PackageJsonDevdependenciesTypescriptEslintParser) == ''">^5.33.0</PackageJsonDevdependenciesTypescriptEslintParser>
+    <PackageJsonDevdependenciesElectron Condition="$(PackageJsonDevdependenciesElectron) == ''">^30.0.0</PackageJsonDevdependenciesElectron>
+    <PackageJsonDevdependenciesEslint Condition="$(PackageJsonDevdependenciesEslint) == ''">^8.21.0</PackageJsonDevdependenciesEslint>
+    <PackageJsonDevdependenciesRimraf Condition="$(PackageJsonDevdependenciesRimraf) == ''">^5.0.0</PackageJsonDevdependenciesRimraf>
+    <PackageJsonDevdependenciesTypescript Condition="$(PackageJsonDevdependenciesTypescript) == ''">^5.6.3</PackageJsonDevdependenciesTypescript>
+    <PackageJsonEslintconfigParser Condition="$(PackageJsonEslintconfigParser) == ''">@typescript-eslint/parser</PackageJsonEslintconfigParser>
+    <PackageJsonEslintconfigParseroptionsEcmaversion Condition="$(PackageJsonEslintconfigParseroptionsEcmaversion) == ''">latest</PackageJsonEslintconfigParseroptionsEcmaversion>
+    <PackageJsonEslintconfigParseroptionsSourcetype Condition="$(PackageJsonEslintconfigParseroptionsSourcetype) == ''">module</PackageJsonEslintconfigParseroptionsSourcetype>
+    <PackageJsonEslintconfigPlugins Condition="$(PackageJsonEslintconfigPlugins) == ''">[
+  "@typescript-eslint"
+]</PackageJsonEslintconfigPlugins>
+    <PackageJsonDependenciesBetterSqlite3 Condition="$(PackageJsonDependenciesBetterSqlite3) == ''">^12.4.1</PackageJsonDependenciesBetterSqlite3>
+    <PackageJsonDependenciesSqlite3 Condition="$(PackageJsonDependenciesSqlite3) == ''">^5.1.7</PackageJsonDependenciesSqlite3>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - Digital Wellbeing Companion</title>
+    <link rel="stylesheet" href="StyleSheet.css" />
+</head>
+<body>
+    <button id="back-btn" class="back-btn">← Return</button>
+
+    <div class="container">
+        <h1>Welcome!</h1>
+
+        <label>User Email:</label>
+        <input id="email" type="email" placeholder="Enter your email" />
+
+        <label>Username:</label>
+        <input id="username" type="text" placeholder="Create username" />
+        <small>This will be your display name!</small>
+
+        <label>Password:</label>
+        <input id="password" type="password" placeholder="Create password" />
+        <small>Make it something memorable!</small>
+
+        <div class="terms-container">
+            <input type="checkbox" id="terms">
+            <label for="terms">Agree to terms of service</label>
+        </div>
+
+        <button id="register-btn" class="secondary-btn">＋ Register</button>
+    </div>
+
+    <script src="../dist/register.js"></script>
+</body>
+</html>
