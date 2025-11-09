@@ -1,5 +1,13 @@
 import { app, BrowserWindow } from "electron";  //imports electron
 import * as path from "path";
+import { ipcMain } from "electron";
+import { registerUser, loginUser } from "./userService";
+
+ipcMain.on("navigate", (event, page) => {
+    const win = BrowserWindow.fromWebContents(event.sender);
+    if (!win) return;
+    win.loadFile(path.join(__dirname, `../public/${page}`));
+});
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -11,6 +19,9 @@ function createWindow() {   //creates the window for application
         resizable: false,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
+            nodeIntegration: false,
+            contextIsolation: true,
+            sandbox: false,
         },
     });
 
@@ -19,6 +30,17 @@ function createWindow() {   //creates the window for application
     mainWindow.on("closed", () => {
         mainWindow = null;
     });
+
+    
+    ipcMain.handle("register-user", async (_, user) => {  //sends data to login using ICP
+        return registerUser(user);
+    });
+
+    ipcMain.handle("login-user", async (_, credentials) => {  //sends data to registration using ICP
+        const { username, password } = credentials;
+        return loginUser(username, password);
+    });
+
 }
 
 app.on("ready", createWindow);

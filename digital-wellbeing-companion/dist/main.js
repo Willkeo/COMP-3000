@@ -35,6 +35,14 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 const electron_1 = require("electron"); //imports electron
 const path = __importStar(require("path"));
+const electron_2 = require("electron");
+const userService_1 = require("./userService");
+electron_2.ipcMain.on("navigate", (event, page) => {
+    const win = electron_1.BrowserWindow.fromWebContents(event.sender);
+    if (!win)
+        return;
+    win.loadFile(path.join(__dirname, `../public/${page}`));
+});
 let mainWindow = null;
 function createWindow() {
     if (mainWindow)
@@ -45,11 +53,21 @@ function createWindow() {
         resizable: false,
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
+            nodeIntegration: false,
+            contextIsolation: true,
+            sandbox: false,
         },
     });
     mainWindow.loadFile(path.join(__dirname, "../public/login.html")); //first window is login 
     mainWindow.on("closed", () => {
         mainWindow = null;
+    });
+    electron_2.ipcMain.handle("register-user", async (_, user) => {
+        return (0, userService_1.registerUser)(user);
+    });
+    electron_2.ipcMain.handle("login-user", async (_, credentials) => {
+        const { username, password } = credentials;
+        return (0, userService_1.loginUser)(username, password);
     });
 }
 electron_1.app.on("ready", createWindow);
