@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const success = await window.api.registerUser({ username, email, password }); //if login sucessful
             if (success) {
                 alert("Registration successful! Please login.");
-                window.api.navigate("login.html");
+                window.api.navigate("login.html"); //navigates to the login page
             }
             else {
                 alert("Registration failed."); //error if something goes wrong

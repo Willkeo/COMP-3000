@@ -9,7 +9,7 @@ if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir, { recursive: true });
 }
 
-const db = new Database(dbPath);  //open the database
+const db = new Database(dbPath);  //opens the database
 
 //creates database if it doesnt exist
 db.prepare(`  

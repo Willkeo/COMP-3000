@@ -17,7 +17,13 @@ document.getElementById("login-btn")?.addEventListener("click", async () => {
 
         if (user) {
             alert(`Welcome back, ${user.username}!`);
-            //add link to main screen later
+
+            localStorage.setItem("username", user.username);  //saves the user data to local storage to be used later
+            localStorage.setItem("email", user.email);
+            localStorage.setItem("points", user.points.toString());
+
+
+            (window as any).api.navigate("main.html");
         } else {
             alert("Invalid username or password.");
         }

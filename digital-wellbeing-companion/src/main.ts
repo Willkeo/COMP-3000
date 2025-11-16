@@ -3,7 +3,7 @@ import * as path from "path";
 import { ipcMain } from "electron";
 import { registerUser, loginUser } from "./userService";
 
-ipcMain.on("navigate", (event, page) => {
+ipcMain.on("navigate", (event, page) => {  
     const win = BrowserWindow.fromWebContents(event.sender);
     if (!win) return;
     win.loadFile(path.join(__dirname, `../public/${page}`));
@@ -36,16 +36,32 @@ function createWindow() {   //creates the window for application
         return registerUser(user);
     });
 
-    ipcMain.handle("login-user", async (_, credentials) => {  //sends data to registration using ICP
+    ipcMain.handle("login-user", async (event, credentials) => {
         const { username, password } = credentials;
-        return loginUser(username, password);
+        const user = loginUser(username, password);
+
+        if (user) {
+           
+            const win = BrowserWindow.fromWebContents(event.sender);
+            if (win) {
+             
+                win.setResizable(true);
+
+                win.maximize(); //sets the screen to fullscreen
+
+                win.setMinimumSize(800, 600);
+
+                win.loadFile(path.join(__dirname, "../public/main.html"));
+            }
+        }
+
+        return user;
     });
 
 }
 
 app.on("ready", createWindow);
 
-app.on("ready", createWindow);
 app.on("window-all-closed", () => {
     if (process.platform !== "darwin") app.quit();  //stops running app on window close
 });

@@ -65,12 +65,21 @@ function createWindow() {
     electron_2.ipcMain.handle("register-user", async (_, user) => {
         return (0, userService_1.registerUser)(user);
     });
-    electron_2.ipcMain.handle("login-user", async (_, credentials) => {
+    electron_2.ipcMain.handle("login-user", async (event, credentials) => {
         const { username, password } = credentials;
-        return (0, userService_1.loginUser)(username, password);
+        const user = (0, userService_1.loginUser)(username, password);
+        if (user) {
+            const win = electron_1.BrowserWindow.fromWebContents(event.sender);
+            if (win) {
+                win.setResizable(true);
+                win.maximize(); //sets the screen to fullscreen
+                win.setMinimumSize(800, 600);
+                win.loadFile(path.join(__dirname, "../public/main.html"));
+            }
+        }
+        return user;
     });
 }
-electron_1.app.on("ready", createWindow);
 electron_1.app.on("ready", createWindow);
 electron_1.app.on("window-all-closed", () => {
     if (process.platform !== "darwin")

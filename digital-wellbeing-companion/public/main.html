@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Wellbeing Companion</title>
+    <link rel="stylesheet" href="StyleSheet.css">
+</head>
+
+<body class="main-body">
+
+    <header class="main-header">
+        <div class="header-left">
+            <h1>Welcome <span id="username-display">User</span></h1>
+        </div>
+
+        <div class="header-right">
+            <button class="icon-btn">🚩</button>
+
+            <button class="icon-btn">🔔</button>
+
+            <button class="icon-btn">⚙️</button>
+        </div>
+    </header>
+
+    <script src="../dist/mainpage.js"></script>
+
+    <div class="left-column">
+
+        <div class="profile-container">
+            <img class="profile-icon" src="assets/icons/profile-icon.png" alt="Profile Icon">
+
+            <div class="profile-info">
+                <p class="section-title">User profile:</p>
+
+                <label>Username:</label>
+                <input id="profile-username" type="text" readonly />
+
+                <label>Email:</label>
+                <input id="profile-email" type="text" readonly />
+
+                <label>Profile points:</label>
+                <input id="profile-points" type="text" readonly />
+
+                <button id="edit-profile-btn" class="edit-btn">Edit profile</button>
+            </div>
+        </div>
+
+        <div class="goals-section">
+            <div class="goals-header">Recent time goals:</div>
+            <div class="goals-body">
+                <span>WAITING FOR<br>FUNCTIONALITY</span>
+            </div>
+        </div>
+
+        <div class="streak-bar">
+            <span>Your current streak:</span>
+            <div class="streak-right">
+                <span id="streak-number">0</span>
+                <span class="streak-fire">🔥</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-column">
+
+        <div class="timer-section">
+            <div class="timer-header">What is your screen-time goal today?:</div>
+
+            <div class="timer-controls">
+                <div class="timer-labels">
+                    <span>0 hours</span>
+                    <span>1 hour</span>
+                    <span>3 hours</span>
+                    <span>5 hours</span>
+                    <span>No limit</span>
+                </div>
+
+                <input type="range" min="0" max="4" class="timer-slider" />
+
+                <div class="timer-buttons">
+                    <button class="start-btn">▶ Start</button>
+                    <button class="reminder-btn">⚠ Remember to take breaks!</button>
+                </div>
+            </div>
+
+            <div class="timer-remaining">Time remaining: --:--:--</div>
+        </div>
+
+        <div class="right-lower-grid">
+
+            <div class="middle-column">
+
+                <div class="daily-stats-section">
+                    <div class="daily-stats-header">Current daily stats:</div>
+
+                    <div class="daily-stats-body">
+                        <p><strong>Screen-time:</strong> <span id="screen-time-value">0:00:00</span></p>
+                        <p><strong>Current application:</strong> <span id="app-time-value">0:00:00</span></p>
+                    </div>
+                </div>
+
+                <div class="wellbeing-section">
+                    <div class="wellbeing-header">Well-being checklist:</div>
+
+                    <div class="wellbeing-body">
+                        <p class="wb-item"><span>1.</span> Get a drink.</p>
+                        <p class="wb-item"><span>2.</span> Ensure you're not stressed.</p>
+                        <p class="wb-item"><span>3.</span> Remember to watch the time.</p>
+
+                        <div class="wb-ready">Ready to go?</div>
+
+                        <small class="wb-note">It will run in the background! ALT + A to reopen</small>
+
+                        <button class="wb-hide-btn">Hide window</button>
+                    </div>
+                </div>
+
+            </div> 
+            
+            <div class="skill-column">
+
+                <div class="skill-check-container">
+
+                    <div class="skill-check-header">Skill-check games:</div>
+
+                    <div class="skill-check-description">
+                        If you fancy a break from your current activity, have a go at these simple mini games.
+                        You can use these to also earn points on your profile!
+                    </div>
+
+                    <div class="skill-check-item">
+                        <div class="skill-check-title">Drag’n’drop</div>
+                        <button class="skill-check-btn">Play</button>
+                    </div>
+
+                    <div class="skill-check-item">
+                        <div class="skill-check-title">Word search</div>
+                        <button class="skill-check-btn">Play</button>
+                    </div>
+
+                    <div class="skill-check-item">
+                        <div class="skill-check-title">Snake game</div>
+                        <button class="skill-check-btn">Play</button>
+                    </div>
+
+                </div>
+
+            </div> 
+
+        </div> 
+
+    </div> 
+
+</body>
+</html>

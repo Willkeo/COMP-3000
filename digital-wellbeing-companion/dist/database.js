@@ -44,7 +44,7 @@ const dataDir = path.dirname(dbPath); //ensures the database is avalible
 if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir, { recursive: true });
 }
-const db = new better_sqlite3_1.default(dbPath); //open the database
+const db = new better_sqlite3_1.default(dbPath); //opens the database
 //creates database if it doesnt exist
 db.prepare(`  
   CREATE TABLE IF NOT EXISTS users (  
