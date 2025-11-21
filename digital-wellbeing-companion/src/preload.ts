@@ -7,10 +7,16 @@ contextBridge.exposeInMainWorld("api", {
         ipcRenderer.invoke("login-user", { username, password }),
 });
 
-window.addEventListener("focus", () => {
-    document.body.classList.remove("no-focus");
+contextBridge.exposeInMainWorld("electronAPI", {
+    hideWindow: () => ipcRenderer.send("hide-window")
 });
 
-window.addEventListener("blur", () => {
-    document.body.classList.add("no-focus");
-});
+export { };
+
+declare global {
+    interface Window {
+        electronAPI: {
+            hideWindow: () => void;
+        };
+    }
+}

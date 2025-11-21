@@ -33,11 +33,10 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-const electron_1 = require("electron"); //imports electron
+const electron_1 = require("electron");
 const path = __importStar(require("path"));
-const electron_2 = require("electron");
 const userService_1 = require("./userService");
-electron_2.ipcMain.on("navigate", (event, page) => {
+electron_1.ipcMain.on("navigate", (event, page) => {
     const win = electron_1.BrowserWindow.fromWebContents(event.sender);
     if (!win)
         return;
@@ -46,7 +45,7 @@ electron_2.ipcMain.on("navigate", (event, page) => {
 let mainWindow = null;
 function createWindow() {
     if (mainWindow)
-        return; //ensures window only opens once
+        return;
     mainWindow = new electron_1.BrowserWindow({
         width: 400, //size of the app window
         height: 600,
@@ -62,31 +61,52 @@ function createWindow() {
     mainWindow.on("closed", () => {
         mainWindow = null;
     });
-    electron_2.ipcMain.handle("register-user", async (_, user) => {
-        return (0, userService_1.registerUser)(user);
-    });
-    electron_2.ipcMain.handle("login-user", async (event, credentials) => {
-        const { username, password } = credentials;
-        const user = (0, userService_1.loginUser)(username, password);
-        if (user) {
-            const win = electron_1.BrowserWindow.fromWebContents(event.sender);
-            if (win) {
-                win.setResizable(true);
-                win.maximize(); //sets the screen to fullscreen
-                win.setMinimumSize(800, 600);
-                win.loadFile(path.join(__dirname, "../public/main.html"));
-            }
-        }
-        return user;
-    });
 }
-electron_1.app.on("ready", createWindow);
-electron_1.app.on("window-all-closed", () => {
-    if (process.platform !== "darwin")
-        electron_1.app.quit(); //stops running app on window close
+electron_1.ipcMain.handle("register-user", async (_, user) => {
+    return (0, userService_1.registerUser)(user);
 });
-electron_1.app.on("activate", () => {
-    if (mainWindow === null)
-        createWindow();
+electron_1.ipcMain.handle("login-user", async (event, credentials) => {
+    const { username, password } = credentials;
+    const user = (0, userService_1.loginUser)(username, password);
+    if (user) {
+        const win = electron_1.BrowserWindow.fromWebContents(event.sender);
+        if (win) {
+            win.setResizable(true);
+            win.maximize(); //sets the screen to fullscreen
+            win.setMinimumSize(800, 600);
+            win.loadFile(path.join(__dirname, "../public/main.html"));
+        }
+    }
+    return user;
+});
+electron_1.app.whenReady().then(() => {
+    createWindow();
+    electron_1.globalShortcut.register("Alt+A", () => {
+        if (mainWindow) {
+            mainWindow.setSkipTaskbar(false);
+            mainWindow.show();
+            mainWindow.maximize();
+            mainWindow.focus();
+        }
+    });
+    electron_1.ipcMain.on("hide-window", () => {
+        if (mainWindow) {
+            mainWindow.hide();
+            mainWindow.setSkipTaskbar(true);
+        }
+    });
+    electron_1.app.on("activate", () => {
+        if (electron_1.BrowserWindow.getAllWindows().length === 0) {
+            createWindow();
+        }
+    });
+});
+electron_1.app.on("will-quit", () => {
+    electron_1.globalShortcut.unregisterAll(); //removes shortcut when app is closed
+});
+electron_1.app.on("window-all-closed", () => {
+    if (process.platform !== "darwin") {
+        electron_1.app.quit();
+    }
 });
 //# sourceMappingURL=main.js.map

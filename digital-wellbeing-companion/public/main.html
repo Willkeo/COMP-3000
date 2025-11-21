@@ -71,20 +71,20 @@
                 <div class="timer-labels">
                     <span>0 hours</span>
                     <span>1 hour</span>
+                    <span>2 hours</span>
                     <span>3 hours</span>
-                    <span>5 hours</span>
                     <span>No limit</span>
                 </div>
 
-                <input type="range" min="0" max="4" class="timer-slider" />
+                <input id="timeSlider" type="range" min="0" max="4" class="timer-slider" />
 
                 <div class="timer-buttons">
-                    <button class="start-btn">▶ Start</button>
-                    <button class="reminder-btn">⚠ Remember to take breaks!</button>
+                    <button id="startTimerBtn" class="start-btn">▶ Start</button>
+                    <button id="pauseTimerBtn" class="reminder-btn">⚠ Remember to take breaks!</button>
                 </div>
             </div>
 
-            <div class="timer-remaining">Time remaining: --:--:--</div>
+            <div class="timer-remaining">Time remaining: <span id="timeRemaining">--:--:--</div>
         </div>
 
         <div class="right-lower-grid">
@@ -112,12 +112,12 @@
 
                         <small class="wb-note">It will run in the background! ALT + A to reopen</small>
 
-                        <button class="wb-hide-btn">Hide window</button>
+                        <button id="hideWindowBtn" class="wb-hide-btn">Hide window</button>
                     </div>
                 </div>
 
-            </div> 
-            
+            </div>
+
             <div class="skill-column">
 
                 <div class="skill-check-container">
@@ -146,11 +146,11 @@
 
                 </div>
 
-            </div> 
+            </div>
 
-        </div> 
+        </div>
 
-    </div> 
+    </div>
 
 </body>
 </html>

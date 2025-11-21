@@ -576,3 +576,50 @@ small {
     .skill-check-btn:hover {
         background: #007945;
     }
+
+button.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#popup-container {
+    width: 500px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.popup-header {
+    background: #D9D9D9;
+    padding: 15px;
+    font-size: 26px;
+    font-weight: bold;
+    color: black;
+}
+
+.popup-body {
+    background: #1EC870;
+    padding: 40px 25px 70px 25px;
+    font-size: 24px;
+    color: black;
+    text-align: center;
+}
+
+.popup-accept-btn {
+    float: right;
+    margin-top: 20px;
+    margin-right: 10px;
+    bottom: 25px; 
+    right: 25px;
+    padding: 10px 20px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+    .popup-accept-btn:hover {
+        background: #000;
