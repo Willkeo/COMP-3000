@@ -32,6 +32,9 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const electron_1 = require("electron");
 const path = __importStar(require("path"));
@@ -55,13 +58,62 @@ function createWindow() {
             nodeIntegration: false,
             contextIsolation: true,
             sandbox: false,
-        },
+            backgroundThrottling: false
+        }
     });
     mainWindow.loadFile(path.join(__dirname, "../public/login.html")); //first window is login 
     mainWindow.on("closed", () => {
         mainWindow = null;
     });
 }
+let popupWindow = null;
+function createPopupWindow() {
+    if (popupWindow)
+        return;
+    const { width, height } = electron_1.screen.getPrimaryDisplay().workAreaSize;
+    popupWindow = new electron_1.BrowserWindow({
+        width: 500, //setups up the size of the popup
+        height: 250,
+        frame: false,
+        transparent: true,
+        backgroundColor: "#00000000",
+        alwaysOnTop: true, //it will be visible even after minimisation
+        focusable: false,
+        acceptFirstMouse: false,
+        hasShadow: false,
+        closable: true,
+        resizable: false,
+        modal: false,
+        skipTaskbar: true,
+        x: width - 520, //popup touches the right edge
+        y: height / 2 - 125,
+        webPreferences: {
+            preload: path.join(__dirname, "popup.js"),
+            sandbox: false,
+            nodeIntegration: true,
+            contextIsolation: false,
+            backgroundThrottling: false
+        }
+    });
+    popupWindow.setVisibleOnAllWorkspaces(true, {
+        visibleOnFullScreen: true
+    });
+    popupWindow.setAlwaysOnTop(true, "screen-saver");
+    popupWindow.loadFile(path.join(__dirname, "../public/popup.html")); //refers to html for design
+    popupWindow.on("closed", () => {
+        popupWindow = null;
+    });
+}
+electron_1.ipcMain.on("show-popup", (event, data) => {
+    createPopupWindow();
+    popupWindow?.webContents.once("did-finish-load", () => {
+        popupWindow?.webContents.send("set-popup-data", data); //sends the time data to html
+    });
+});
+electron_1.ipcMain.on("close-popup", () => {
+    popupWindow?.close();
+    popupWindow = null;
+});
 electron_1.ipcMain.handle("register-user", async (_, user) => {
     return (0, userService_1.registerUser)(user);
 });
@@ -107,6 +159,40 @@ electron_1.app.on("will-quit", () => {
 electron_1.app.on("window-all-closed", () => {
     if (process.platform !== "darwin") {
         electron_1.app.quit();
+    }
+});
+const active_win_1 = __importDefault(require("active-win"));
+let appInterval = null;
+electron_1.ipcMain.handle("start-app-tracker", () => {
+    if (appInterval)
+        return;
+    appInterval = setInterval(async () => {
+        const active = await (0, active_win_1.default)();
+        if (!active) {
+            mainWindow?.webContents.send("app-focus-update", {
+                isApp: false,
+                title: "",
+                exe: ""
+            });
+            return;
+        }
+        const appNames = ["fortnite", "valorant", "minecraft", "steam", "elden ring"]; //example apps, these can be updated and changed
+        const activeTitle = active.title.toLowerCase(); //ensure then app title matches the running exe
+        const activeExe = active.owner?.name?.toLowerCase() ?? "";
+        const isApp = appNames.some(//checks if the app matches one listed
+        //checks if the app matches one listed
+        name => activeTitle.includes(name) || activeExe.includes(name));
+        mainWindow?.webContents.send("app-focus-update", {
+            isApp,
+            title: active.title,
+            exe: activeExe
+        });
+    }, 1000);
+});
+electron_1.ipcMain.handle("stop-app-tracker", () => {
+    if (appInterval) {
+        clearInterval(appInterval);
+        appInterval = null;
     }
 });
 //# sourceMappingURL=main.js.map

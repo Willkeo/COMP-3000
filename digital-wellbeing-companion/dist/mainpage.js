@@ -24,6 +24,40 @@ document.addEventListener("DOMContentLoaded", () => {
             screenTimeEl.textContent = formatTime(elapsed);
         }
     }, 1000);
+    let appSeconds = 0; //sets variables
+    let appIntervalRunning = false;
+    let appInterval;
+    window.appTrackerAPI.start(); //waits for app tracker updates
+    window.appTrackerAPI.onFocusUpdate((data) => {
+        const appTimerEl = document.getElementById("app-time-value");
+        if (!appTimerEl)
+            return;
+        if (data.isApp) {
+            if (!appIntervalRunning) { //if the app is running and in focus start counting
+                appIntervalRunning = true;
+                appInterval = window.setInterval(() => {
+                    appSeconds++;
+                    appTimerEl.textContent = formatAppTime(appSeconds);
+                }, 1000);
+            }
+        }
+        else {
+            appIntervalRunning = false; //pause the timer if app isnt running
+            if (appInterval !== undefined) {
+                clearInterval(appInterval);
+                appInterval = undefined;
+            }
+        }
+    });
+    function formatAppTime(totalSeconds) {
+        const h = Math.floor(totalSeconds / 3600);
+        const m = Math.floor((totalSeconds % 3600) / 60);
+        const s = totalSeconds % 60;
+        return `${pad(h)}:${pad(m)}:${pad(s)}`;
+    }
+    function pad(num) {
+        return num.toString().padStart(2, "0");
+    }
     window.addEventListener("DOMContentLoaded", () => {
         const hideBtn = document.getElementById("hideWindowBtn"); //registers whether the hide button has been clicked
         if (hideBtn && window.electronAPI) {
@@ -38,6 +72,24 @@ window.addEventListener("DOMContentLoaded", () => {
     const timeDisplay = document.getElementById("timeRemaining");
     const startBtn = document.getElementById("startTimerBtn");
     const pauseBtn = document.getElementById("pauseTimerBtn");
+    const popupMessages = [
+        "Time for a stretch!", //popup messages. could be subject to change
+        "Grab some water!",
+        "Step outside for 5 minutes!",
+        "Keep yourself calm!",
+        "Anything else planned today?",
+        "Take a quick break!",
+        "Hows your mood?",
+        "Online support is avalible.",
+        "Will you meet your goal?",
+        "Keep and eye on the time!",
+        "Be kind online!",
+        "Hows the game going?",
+        "Grab a snack or two!"
+    ];
+    function getRandomBreakMessage() {
+        return popupMessages[Math.floor(Math.random() * popupMessages.length)]; //selects a random message to display
+    }
     let totalSeconds = 0; //set variables
     let remainingSeconds = 0;
     let timerInterval;
@@ -49,7 +101,7 @@ window.addEventListener("DOMContentLoaded", () => {
             remainingSeconds = 0;
             return;
         }
-        totalSeconds = hours * 3600; //calculates the amount of hours
+        totalSeconds = hours * 3600; //calculates the amount of hours in seconds
         remainingSeconds = totalSeconds;
         timeDisplay.textContent = formatTime(remainingSeconds);
     });
@@ -58,16 +110,33 @@ window.addEventListener("DOMContentLoaded", () => {
             return;
         startBtn.disabled = true; //disables the start button 
         startBtn.classList.add("disabled");
+        window.popupAPI.showPopup({
+            timeText: formatTime(remainingSeconds), //shows popup when timer is started
+            message: "Timer started, have fun!"
+        });
+        let nextPopupAt = remainingSeconds - 1800; //a pop up will show every half an hour from timer start
         if (timerInterval)
             clearInterval(timerInterval);
         timerInterval = window.setInterval(() => {
             remainingSeconds--;
             timeDisplay.textContent = formatTime(remainingSeconds);
+            if (remainingSeconds === nextPopupAt && remainingSeconds > 0) { //shows pop when the timer detects half an hour
+                window.popupAPI.showPopup({
+                    timeText: formatTime(remainingSeconds), //shows the remaining time
+                    message: getRandomBreakMessage()
+                });
+                nextPopupAt -= 1800; //next popup appears half an hour later
+            }
             if (remainingSeconds <= 0) {
                 clearInterval(timerInterval);
                 startBtn.disabled = false; //re enables button when time runs out
                 startBtn.classList.remove("disabled");
                 timeDisplay.textContent = "00:00:00";
+                window.popupAPI.showPopup({
+                    timeText: "00:00:00",
+                    message: "Times up, take a break?"
+                });
+                return;
             }
         }, 1000);
     });

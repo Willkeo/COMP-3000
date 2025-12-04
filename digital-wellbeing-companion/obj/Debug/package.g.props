@@ -26,8 +26,10 @@
     <PackageJsonEslintconfigPlugins Condition="$(PackageJsonEslintconfigPlugins) == ''">[
   "@typescript-eslint"
 ]</PackageJsonEslintconfigPlugins>
+    <PackageJsonDependenciesActiveWin Condition="$(PackageJsonDependenciesActiveWin) == ''">^8.2.1</PackageJsonDependenciesActiveWin>
     <PackageJsonDependenciesBcrypt Condition="$(PackageJsonDependenciesBcrypt) == ''">^6.0.0</PackageJsonDependenciesBcrypt>
     <PackageJsonDependenciesBetterSqlite3 Condition="$(PackageJsonDependenciesBetterSqlite3) == ''">^12.4.1</PackageJsonDependenciesBetterSqlite3>
+    <PackageJsonDependenciesPsList Condition="$(PackageJsonDependenciesPsList) == ''">^9.0.0</PackageJsonDependenciesPsList>
     <PackageJsonDependenciesSqlite3 Condition="$(PackageJsonDependenciesSqlite3) == ''">^5.1.7</PackageJsonDependenciesSqlite3>
   </PropertyGroup>
 </Project>

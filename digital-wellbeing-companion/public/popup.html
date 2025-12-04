@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="stylesheet.css" />
 </head>
 
-<body>
-    <div id="popup-container">
+<body style="background: transparent; margin: 0; padding: 0;">
+    <div id="popup-container" class="slide-in">
         <div class="popup-header">
             <span id="popup-header-text">Time goal remaining: --:--:--</span>
         </div>
@@ -15,10 +15,11 @@
         <div class="popup-body">
             <p id="popup-message">Timer started, have fun!</p>
 
-            <button id="popup-accept-btn" class="popup-accept-btn">✔ Accept</button>
+            <button id="popup-accept-btn" class="popup-accept-btn">
+                ✓ Accept
+            </button>
         </div>
     </div>
-
     <script src="../dist/popup.js"></script>
 </body>
 </html>
