@@ -45,9 +45,9 @@ if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir, { recursive: true });
 }
 const db = new better_sqlite3_1.default(dbPath); //opens the database
-//creates database if it doesnt exist
+//creates database if it doesnt exist, this is the database for users
 db.prepare(`  
-  CREATE TABLE IF NOT EXISTS users (  
+  CREATE TABLE IF NOT EXISTS users (   
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE,
     email TEXT,

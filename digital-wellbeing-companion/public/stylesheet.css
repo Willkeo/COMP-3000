@@ -640,3 +640,18 @@ button.disabled {
     .popup-accept-btn:hover {
         background: #000;
     }
+
+#goal-history-list {
+    list-style: none; 
+    padding: 15px;
+    margin: 0;
+}
+
+.goal-item {
+    font-size: 22px;
+    margin-bottom: 12px;
+    text-align: left;
+    color: #000;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}

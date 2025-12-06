@@ -1,7 +1,8 @@
+
 document.addEventListener("DOMContentLoaded", () => {
 
-    const usernameDisplay = document.getElementById("username-display");  //loads username for header
     const username = localStorage.getItem("username") ?? "User";
+    const usernameDisplay = document.getElementById("username-display");  //loads username for header
 
     if (usernameDisplay) {
         usernameDisplay.textContent = username;
@@ -113,6 +114,58 @@ window.addEventListener("DOMContentLoaded", () => {
         return popupMessages[Math.floor(Math.random() * popupMessages.length)];  //selects a random message to display
     }
 
+    function saveTimeGoal(duration: string) {
+        const username = localStorage.getItem("username") ?? "User";
+
+        const existing = JSON.parse(localStorage.getItem("goalHistory_" + username) ?? "[]"); //loads the current data
+
+        existing.unshift({  //adds a new date
+            duration,
+            setAt: Date.now()
+        });
+
+        while (existing.length > 12) existing.pop(); //only keeps the most recent 12
+
+        localStorage.setItem("goalHistory_" + username, JSON.stringify(existing)); //saves to local storage
+
+        loadGoalHistory();
+    }
+    interface GoalEntry {
+        setAt: string;
+        duration: string;
+    }
+
+    function loadGoalHistory() {
+        const username = localStorage.getItem("username") ?? "User";  //loads the users data
+        const list = document.getElementById("goal-history-list");
+
+        if (!list) return;
+
+        const goals = JSON.parse(localStorage.getItem("goalHistory_" + username) ?? "[]");
+
+        list.innerHTML = "";
+
+        if (goals.length === 0) { //will display a message if there are no current time goals
+            const li = document.createElement("li");
+            li.textContent = "No recent time goals yet!";
+            li.classList.add("goal-item");
+            list.appendChild(li);
+            return;
+        }
+
+        goals.forEach((g: GoalEntry) => {
+            const li = document.createElement("li");
+            const date = new Date(g.setAt);   //fetches current date
+            li.textContent = `On ${date.toLocaleDateString()}, you set a time goal for ${g.duration}`;
+            li.classList.add("goal-item"); //for styling on my css
+            list.appendChild(li);
+        });
+    }
+
+    //load history on startup
+    loadGoalHistory();
+
+
     let totalSeconds = 0;  //set variables
     let remainingSeconds = 0;
     let timerInterval: number | undefined;
@@ -138,6 +191,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
         startBtn.disabled = true;          //disables the start button 
         startBtn.classList.add("disabled");
+
+        saveTimeGoal(formatTime(remainingSeconds)); //sends the current time to the save recent time goal function
 
         window.popupAPI.showPopup({
             timeText: formatTime(remainingSeconds),  //shows popup when timer is started
@@ -201,4 +256,4 @@ window.addEventListener("DOMContentLoaded", () => {
         return num.toString().padStart(2, "0");
     }
 
-});
+    });
