@@ -3,6 +3,22 @@
   "WorkspaceRootPath": "C:\\Users\\Willk\\Documents\\GitHub\\COMP-3000\\digital-wellbeing-companion\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|c:\\users\\willk\\documents\\github\\comp-3000\\digital-wellbeing-companion\\public\\stylesheet.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|solutionrelative:public\\stylesheet.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|c:\\users\\willk\\documents\\github\\comp-3000\\digital-wellbeing-companion\\public\\main.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|solutionrelative:public\\main.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|c:\\users\\willk\\documents\\github\\comp-3000\\digital-wellbeing-companion\\public\\popup.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|solutionrelative:public\\popup.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|c:\\users\\willk\\documents\\github\\comp-3000\\digital-wellbeing-companion\\public\\login.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|solutionrelative:public\\login.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|c:\\users\\willk\\documents\\github\\comp-3000\\digital-wellbeing-companion\\src\\mainpage.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|solutionrelative:src\\mainpage.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
@@ -13,14 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|c:\\users\\willk\\documents\\github\\comp-3000\\digital-wellbeing-companion\\src\\preload.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|solutionrelative:src\\preload.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|c:\\users\\willk\\documents\\github\\comp-3000\\digital-wellbeing-companion\\public\\stylesheet.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|solutionrelative:public\\stylesheet.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|c:\\users\\willk\\documents\\github\\comp-3000\\digital-wellbeing-companion\\public\\main.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|solutionrelative:public\\main.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|c:\\users\\willk\\documents\\github\\comp-3000\\digital-wellbeing-companion\\src\\popup.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
@@ -35,10 +43,6 @@
       "RelativeMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|solutionrelative:src\\userservice.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|c:\\users\\willk\\documents\\github\\comp-3000\\digital-wellbeing-companion\\public\\popup.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|solutionrelative:public\\popup.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|c:\\users\\willk\\documents\\github\\comp-3000\\digital-wellbeing-companion\\src\\login.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|solutionrelative:src\\login.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
     },
@@ -49,10 +53,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|c:\\users\\willk\\documents\\github\\comp-3000\\digital-wellbeing-companion\\src\\register.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
       "RelativeMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|solutionrelative:src\\register.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|c:\\users\\willk\\documents\\github\\comp-3000\\digital-wellbeing-companion\\public\\login.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|solutionrelative:public\\login.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{65EEDD78-19AD-E274-B6A0-5B5252503F21}|digital-wellbeing-companion.esproj|c:\\users\\willk\\documents\\github\\comp-3000\\digital-wellbeing-companion\\dist\\login.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
@@ -82,7 +82,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 13,
           "Children": [
             {
               "$type": "Bookmark",
@@ -90,7 +90,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "popup.ts",
               "DocumentMoniker": "C:\\Users\\Willk\\Documents\\GitHub\\COMP-3000\\digital-wellbeing-companion\\src\\popup.ts",
               "RelativeDocumentMoniker": "src\\popup.ts",
@@ -98,12 +98,11 @@
               "RelativeToolTip": "src\\popup.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-22T11:54:36.503Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-22T11:54:36.503Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 2,
               "Title": "popup.html",
               "DocumentMoniker": "C:\\Users\\Willk\\Documents\\GitHub\\COMP-3000\\digital-wellbeing-companion\\public\\popup.html",
               "RelativeDocumentMoniker": "public\\popup.html",
@@ -111,7 +110,8 @@
               "RelativeToolTip": "public\\popup.html",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-21T16:51:37.337Z"
+              "WhenOpened": "2025-11-21T16:51:37.337Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -127,7 +127,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "mainpage.ts",
               "DocumentMoniker": "C:\\Users\\Willk\\Documents\\GitHub\\COMP-3000\\digital-wellbeing-companion\\src\\mainpage.ts",
               "RelativeDocumentMoniker": "src\\mainpage.ts",
@@ -135,18 +135,17 @@
               "RelativeToolTip": "src\\mainpage.ts",
               "ViewState": "AgIAALcAAAAAAAAAAAAowMIAAAByAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-12T14:46:34.718Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T14:46:34.718Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "main.html",
               "DocumentMoniker": "C:\\Users\\Willk\\Documents\\GitHub\\COMP-3000\\digital-wellbeing-companion\\public\\main.html",
               "RelativeDocumentMoniker": "public\\main.html",
               "ToolTip": "C:\\Users\\Willk\\Documents\\GitHub\\COMP-3000\\digital-wellbeing-companion\\public\\main.html",
               "RelativeToolTip": "public\\main.html",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAACAAAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
               "WhenOpened": "2025-11-10T12:02:21.4Z",
               "EditorCaption": ""
@@ -165,7 +164,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "preload.ts",
               "DocumentMoniker": "C:\\Users\\Willk\\Documents\\GitHub\\COMP-3000\\digital-wellbeing-companion\\src\\preload.ts",
               "RelativeDocumentMoniker": "src\\preload.ts",
@@ -173,12 +172,11 @@
               "RelativeToolTip": "src\\preload.ts",
               "ViewState": "AgIAABgAAAAAAAAAAAAAADYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-08T11:48:45.241Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-08T11:48:45.241Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "userService.ts",
               "DocumentMoniker": "C:\\Users\\Willk\\Documents\\GitHub\\COMP-3000\\digital-wellbeing-companion\\src\\userService.ts",
               "RelativeDocumentMoniker": "src\\userService.ts",
@@ -186,12 +184,11 @@
               "RelativeToolTip": "src\\userService.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-08T11:40:07.063Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-08T11:40:07.063Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "database.ts",
               "DocumentMoniker": "C:\\Users\\Willk\\Documents\\GitHub\\COMP-3000\\digital-wellbeing-companion\\src\\database.ts",
               "RelativeDocumentMoniker": "src\\database.ts",
@@ -199,8 +196,7 @@
               "RelativeToolTip": "src\\database.ts",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-07T11:53:12.179Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-07T11:53:12.179Z"
             },
             {
               "$type": "Document",
@@ -216,7 +212,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "register.ts",
               "DocumentMoniker": "C:\\Users\\Willk\\Documents\\GitHub\\COMP-3000\\digital-wellbeing-companion\\src\\register.ts",
               "RelativeDocumentMoniker": "src\\register.ts",
@@ -228,7 +224,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "login.ts",
               "DocumentMoniker": "C:\\Users\\Willk\\Documents\\GitHub\\COMP-3000\\digital-wellbeing-companion\\src\\login.ts",
               "RelativeDocumentMoniker": "src\\login.ts",
@@ -240,20 +236,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "stylesheet.css",
               "DocumentMoniker": "C:\\Users\\Willk\\Documents\\GitHub\\COMP-3000\\digital-wellbeing-companion\\public\\stylesheet.css",
               "RelativeDocumentMoniker": "public\\stylesheet.css",
               "ToolTip": "C:\\Users\\Willk\\Documents\\GitHub\\COMP-3000\\digital-wellbeing-companion\\public\\stylesheet.css",
               "RelativeToolTip": "public\\stylesheet.css",
-              "ViewState": "AgIAAG4CAAAAAAAAAAAswIoCAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAEYBAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2025-11-05T16:08:32.049Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "main.ts",
               "DocumentMoniker": "C:\\Users\\Willk\\Documents\\GitHub\\COMP-3000\\digital-wellbeing-companion\\src\\main.ts",
               "RelativeDocumentMoniker": "src\\main.ts",
@@ -261,8 +257,7 @@
               "RelativeToolTip": "src\\main.ts",
               "ViewState": "AgIAAJcAAAAAAAAAAAAgwAIAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
-              "WhenOpened": "2025-11-02T13:50:50.962Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-02T13:50:50.962Z"
             },
             {
               "$type": "Document",
@@ -278,7 +273,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "register.html",
               "DocumentMoniker": "C:\\Users\\Willk\\Documents\\GitHub\\COMP-3000\\digital-wellbeing-companion\\public\\register.html",
               "RelativeDocumentMoniker": "public\\register.html",
@@ -290,7 +285,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 3,
               "Title": "login.html",
               "DocumentMoniker": "C:\\Users\\Willk\\Documents\\GitHub\\COMP-3000\\digital-wellbeing-companion\\public\\login.html",
               "RelativeDocumentMoniker": "public\\login.html",
@@ -298,7 +293,8 @@
               "RelativeToolTip": "public\\login.html",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-11-02T13:22:49.967Z"
+              "WhenOpened": "2025-11-02T13:22:49.967Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
