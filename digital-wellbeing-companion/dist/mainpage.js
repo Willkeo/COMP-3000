@@ -1,7 +1,15 @@
 "use strict";
 document.addEventListener("DOMContentLoaded", () => {
+    const userId = localStorage.getItem("userId") ?? "guest";
     const username = localStorage.getItem("username") ?? "User";
+    updateStreak(userId); //loads the username to be attached to the streak variable
     const usernameDisplay = document.getElementById("username-display"); //loads username for header
+    function getStreakKeys(userId) {
+        return {
+            streakKey: `streak_${userId}`, //ensures the streak is account based
+            lastOpenKey: `lastOpen_${userId}` //uses the username to identify the streak and if the user is openening daily
+        };
+    }
     if (usernameDisplay) {
         usernameDisplay.textContent = username;
     }
@@ -10,6 +18,52 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("profile-username").value = username; //loads them for html 
     document.getElementById("profile-email").value = email;
     document.getElementById("profile-points").value = points;
+    const profileImage = document.getElementById("profile-image");
+    const uploadInput = document.getElementById("profile-upload");
+    profileImage.addEventListener("click", () => {
+        uploadInput.click();
+    });
+    uploadInput.addEventListener("change", () => {
+        const file = uploadInput.files?.[0];
+        if (!file)
+            return;
+        const reader = new FileReader();
+        reader.onload = () => {
+            const imageData = reader.result;
+            profileImage.src = imageData;
+            localStorage.setItem(`profileImage_${userId}`, imageData); //stores the profile image to local storage with account
+        };
+        reader.readAsDataURL(file);
+    });
+    const savedImage = localStorage.getItem(`profileImage_${userId}`); //loads the saved profile image for the account.
+    if (savedImage)
+        profileImage.src = savedImage;
+    const editBtn = document.getElementById("edit-profile-btn"); //declares the profile sections as being editiable
+    const usernameInput = document.getElementById("profile-username");
+    const emailInput = document.getElementById("profile-email");
+    let editing = false;
+    editBtn.addEventListener("click", async () => {
+        if (!editing) {
+            editing = true;
+            editBtn.textContent = "Save"; //the button changes to saying 'save'
+            usernameInput.removeAttribute("readonly");
+            emailInput.removeAttribute("readonly");
+            usernameInput.focus();
+        }
+        else {
+            editing = false;
+            editBtn.textContent = "Edit profile"; //once the user has finished saving the button will go back to edit profile
+            usernameInput.setAttribute("readonly", "true");
+            emailInput.setAttribute("readonly", "true");
+            const newUsername = usernameInput.value.trim();
+            const newEmail = emailInput.value.trim();
+            const oldUsername = localStorage.getItem("username");
+            window.api.updateUserProfile(oldUsername, newUsername, newEmail);
+            localStorage.setItem("username", newUsername); //sets the editied username and email in storage
+            localStorage.setItem("email", newEmail);
+            alert("Your profile updated"); //message to inform user
+        }
+    });
     let appStartTime = Date.now();
     function formatTime(ms) {
         const hours = Math.floor(ms / 3600000);
@@ -55,6 +109,36 @@ document.addEventListener("DOMContentLoaded", () => {
         const s = totalSeconds % 60;
         return `${pad(h)}:${pad(m)}:${pad(s)}`;
     }
+    function updateStreak(userId) {
+        const { streakKey, lastOpenKey } = getStreakKeys(userId);
+        const today = new Date();
+        const todayStr = today.toISOString().split("T")[0];
+        const lastOpen = localStorage.getItem(lastOpenKey); //checks local storage for last time the app was opened
+        let streak = Number(localStorage.getItem(streakKey)) || 0;
+        if (!lastOpen) {
+            streak = 1;
+        }
+        else {
+            const lastDate = new Date(lastOpen);
+            const diffTime = today.getTime() - lastDate.getTime();
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            if (diffDays === 1) { //checks if the day has increased by 1
+                streak += 1;
+            }
+            else if (diffDays > 1) { //resets the streak if the day has increase by more than 1 (miss a day)
+                streak = 1;
+            }
+        }
+        localStorage.setItem(streakKey, streak.toString());
+        localStorage.setItem(lastOpenKey, todayStr);
+        updateStreakUI(streak);
+    }
+    function updateStreakUI(streak) {
+        const streakNumber = document.getElementById("streak-number"); //updates the number in HTML by 1
+        if (streakNumber) {
+            streakNumber.textContent = streak.toString();
+        }
+    }
     function pad(num) {
         return num.toString().padStart(2, "0");
     }
@@ -91,23 +175,23 @@ window.addEventListener("DOMContentLoaded", () => {
         return popupMessages[Math.floor(Math.random() * popupMessages.length)]; //selects a random message to display
     }
     function saveTimeGoal(duration) {
-        const username = localStorage.getItem("username") ?? "User";
-        const existing = JSON.parse(localStorage.getItem("goalHistory_" + username) ?? "[]"); //loads the current data
+        const userId = localStorage.getItem("userId") ?? "guest";
+        const existing = JSON.parse(localStorage.getItem("goalHistory_" + userId) ?? "[]"); //loads the current data
         existing.unshift({
             duration,
             setAt: Date.now()
         });
         while (existing.length > 12)
             existing.pop(); //only keeps the most recent 12
-        localStorage.setItem("goalHistory_" + username, JSON.stringify(existing)); //saves to local storage
+        localStorage.setItem("goalHistory_" + userId, JSON.stringify(existing)); //saves to local storage
         loadGoalHistory();
     }
     function loadGoalHistory() {
-        const username = localStorage.getItem("username") ?? "User"; //loads the users data
+        const userId = localStorage.getItem("userId") ?? "guest"; //loads the users data
         const list = document.getElementById("goal-history-list");
         if (!list)
             return;
-        const goals = JSON.parse(localStorage.getItem("goalHistory_" + username) ?? "[]");
+        const goals = JSON.parse(localStorage.getItem("goalHistory_" + userId) ?? "[]");
         list.innerHTML = "";
         if (goals.length === 0) { //will display a message if there are no current time goals
             const li = document.createElement("li");

@@ -5,6 +5,7 @@ electron_1.contextBridge.exposeInMainWorld("api", {
     navigate: (page) => electron_1.ipcRenderer.send("navigate", page),
     registerUser: (user) => electron_1.ipcRenderer.invoke("register-user", user),
     loginUser: (username, password) => electron_1.ipcRenderer.invoke("login-user", { username, password }),
+    updateUserProfile: (oldUsername, newUsername, newEmail) => electron_1.ipcRenderer.invoke("update-user-profile", { oldUsername, newUsername, newEmail }),
 });
 electron_1.contextBridge.exposeInMainWorld("electronAPI", {
     hideWindow: () => electron_1.ipcRenderer.send("hide-window")

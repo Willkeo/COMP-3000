@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const electron_1 = require("electron");
 const path = __importStar(require("path"));
 const userService_1 = require("./userService");
+const userService_2 = require("./userService");
 electron_1.ipcMain.on("navigate", (event, page) => {
     const win = electron_1.BrowserWindow.fromWebContents(event.sender);
     if (!win)
@@ -130,6 +131,9 @@ electron_1.ipcMain.handle("login-user", async (event, credentials) => {
         }
     }
     return user;
+});
+electron_1.ipcMain.handle("update-user-profile", (_, data) => {
+    return (0, userService_2.updateUserProfile)(data.oldUsername, data.newUsername, data.newEmail); //sends request to edit user details to preload
 });
 electron_1.app.whenReady().then(() => {
     createWindow();

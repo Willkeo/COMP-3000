@@ -1,6 +1,7 @@
 import { app, screen, BrowserWindow, globalShortcut, ipcMain } from "electron";
 import * as path from "path";
 import { registerUser, loginUser } from "./userService";
+import { updateUserProfile } from "./userService";
 
 ipcMain.on("navigate", (event, page) => {
     const win = BrowserWindow.fromWebContents(event.sender);
@@ -110,6 +111,10 @@ ipcMain.handle("login-user", async (event, credentials) => { //sends data to log
     }
 
     return user;
+});
+
+ipcMain.handle("update-user-profile", (_, data) => {
+    return updateUserProfile(data.oldUsername, data.newUsername, data.newEmail); //sends request to edit user details to preload
 });
 
 app.whenReady().then(() => {

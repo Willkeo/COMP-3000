@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerUser = registerUser;
 exports.loginUser = loginUser;
+exports.updateUserProfile = updateUserProfile;
 const database_1 = __importDefault(require("./database")); //loads database data
 const bcrypt_1 = __importDefault(require("bcrypt"));
 function registerUser(user) {
@@ -28,5 +29,22 @@ function loginUser(username, password) {
     if (!passwordMatch)
         return null;
     return user;
+}
+function updateUserProfile(//the edit user function
+oldUsername, //finds the old username
+newUsername, newEmail) {
+    try { //updates the users data in the database
+        const stmt = database_1.default.prepare(`  
+            UPDATE users
+            SET username = ?, email = ?
+            WHERE username = ?
+        `);
+        stmt.run(newUsername, newEmail, oldUsername);
+        return true;
+    }
+    catch (error) {
+        console.error("Profile updating had an error:", error.message); //error message incase of faliure
+        return false;
+    }
 }
 //# sourceMappingURL=userService.js.map

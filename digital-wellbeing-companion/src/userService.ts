@@ -33,3 +33,23 @@ export function loginUser(username: string, password: string): User | null {  //
     return user;
 
 }
+
+export function updateUserProfile(  //the edit user function
+    oldUsername: string,  //finds the old username
+    newUsername: string,
+    newEmail: string
+): boolean {
+    try {  //updates the users data in the database
+        const stmt = db.prepare(`  
+            UPDATE users
+            SET username = ?, email = ?
+            WHERE username = ?
+        `);
+
+        stmt.run(newUsername, newEmail, oldUsername);
+        return true;
+    } catch (error: any) {
+        console.error("Profile updating had an error:", error.message);  //error message incase of faliure
+        return false;
+    }
+}

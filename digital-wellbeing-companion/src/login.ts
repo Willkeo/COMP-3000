@@ -18,6 +18,7 @@ document.getElementById("login-btn")?.addEventListener("click", async () => {
         if (user) {
             alert(`Welcome back, ${user.username}!`);
 
+            localStorage.setItem("userId", user.id.toString()); //saves user ID
             localStorage.setItem("username", user.username);  //saves the user data to local storage to be used later
             localStorage.setItem("email", user.email);
             localStorage.setItem("points", user.points.toString());

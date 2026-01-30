@@ -5,7 +5,10 @@ contextBridge.exposeInMainWorld("api", {
     registerUser: (user: any) => ipcRenderer.invoke("register-user", user),
     loginUser: (username: string, password: string) =>
         ipcRenderer.invoke("login-user", { username, password }),
+    updateUserProfile: (oldUsername: string, newUsername: string, newEmail: string) =>
+        ipcRenderer.invoke("update-user-profile", { oldUsername, newUsername, newEmail }),
 });
+
 
 contextBridge.exposeInMainWorld("electronAPI", {
     hideWindow: () => ipcRenderer.send("hide-window")
