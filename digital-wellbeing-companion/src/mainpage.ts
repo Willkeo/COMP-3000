@@ -1,4 +1,8 @@
 
+document.addEventListener("keydown", (e) => {
+    console.log("KEY:", e.key, "TARGET:", e.target); //debugging to check the keyboard is being registered
+}, true);
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const userId = localStorage.getItem("userId") ?? "guest";
@@ -59,14 +63,23 @@ document.addEventListener("DOMContentLoaded", () => {
     editBtn.addEventListener("click", async () => {  //enters an editing mode when the button is clicked
         if (!editing) {
             editing = true;
-            editBtn.textContent = "Save";  //the button changes to saying 'save'
-            usernameInput.removeAttribute("readonly");
+            editBtn.textContent = "Save";
+
+            usernameInput.removeAttribute("readonly");  //removes the readonly from the html to allow editing
             emailInput.removeAttribute("readonly");
-            usernameInput.focus();
+
+            requestAnimationFrame(() => {  //ensures the box stays in focus
+                usernameInput.focus();
+                usernameInput.setSelectionRange(
+                    usernameInput.value.length,
+                    usernameInput.value.length
+                );
+            });
         } else {
             editing = false;
-            editBtn.textContent = "Edit profile";  //once the user has finished saving the button will go back to edit profile
-            usernameInput.setAttribute("readonly", "true");
+            editBtn.textContent = "Edit profile";  //button returns to normal once editing is done
+
+            usernameInput.setAttribute("readonly", "true"); //turns it back to readonly to endure uses dont accidently make changes
             emailInput.setAttribute("readonly", "true");
 
             const newUsername = usernameInput.value.trim();
@@ -75,10 +88,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             (window as any).api.updateUserProfile(oldUsername, newUsername, newEmail);
 
-            localStorage.setItem("username", newUsername);  //sets the editied username and email in storage
+            localStorage.setItem("username", newUsername);  //sends the request for the new data to be added to the database
             localStorage.setItem("email", newEmail);
 
-            alert("Your profile updated"); //message to inform user
+            alert("Your profile updated");  //alert message
         }
     });
 

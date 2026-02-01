@@ -278,7 +278,12 @@ small {
     border-radius: 5px;
     border: 1px solid #1ec870;
     background: #0f2419;
+    caret-color: #e8ffe7;
 }
+
+    .profile-info input:not([readonly]) {
+        cursor: text;
+    }
 
 .edit-btn {
     margin-top: 8px;
