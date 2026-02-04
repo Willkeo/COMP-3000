@@ -156,6 +156,53 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     });
+    const settingsBtn = document.getElementById("settings-btn"); //declares all the relevant settings elements
+    const settingsModal = document.getElementById("settings-modal");
+    const settingsOverlay = document.getElementById("settings-overlay");
+    const closeSettingsBtn = document.getElementById("close-settings-btn");
+    const logoutBtn = document.getElementById("logout-btn");
+    const disablePopupsToggle = document.getElementById("disable-popups-toggle");
+    const closeOnExitToggle = document.getElementById("close-on-exit-toggle");
+    const rememberLoginToggle = document.getElementById("remember-login-toggle");
+    function loadSettings() {
+        const disablePopups = localStorage.getItem("disablePopups") === "true"; //stores the settings in local storage
+        const closeOnExit = localStorage.getItem("closeOnExit") === "true";
+        const rememberLogin = localStorage.getItem("rememberLogin") !== "false";
+        disablePopupsToggle.checked = disablePopups;
+        closeOnExitToggle.checked = closeOnExit;
+        rememberLoginToggle.checked = rememberLogin;
+    }
+    function saveSettings() {
+        localStorage.setItem("disablePopups", disablePopupsToggle.checked.toString()); //saves the settings to local storage
+        localStorage.setItem("closeOnExit", closeOnExitToggle.checked.toString());
+        localStorage.setItem("rememberLogin", rememberLoginToggle.checked.toString());
+    }
+    function openSettings() {
+        settingsModal.classList.add("active"); //opens settings modal
+        settingsOverlay.classList.add("active");
+        loadSettings();
+    }
+    function closeSettings() {
+        settingsModal.classList.remove("active"); //closes settings modal
+        settingsOverlay.classList.remove("active");
+    }
+    settingsBtn.addEventListener("click", openSettings); //create buttons to open and close settings
+    closeSettingsBtn.addEventListener("click", closeSettings);
+    settingsOverlay.addEventListener("click", closeSettings);
+    disablePopupsToggle.addEventListener("change", saveSettings); //saves the settings when toggled
+    closeOnExitToggle.addEventListener("change", saveSettings);
+    rememberLoginToggle.addEventListener("change", saveSettings);
+    logoutBtn.addEventListener("click", () => {
+        if (confirm("Are you sure you want to logout?")) { //removes all user data from local storage on logout
+            localStorage.removeItem("userId");
+            localStorage.removeItem("username");
+            localStorage.removeItem("email");
+            localStorage.removeItem("points");
+            localStorage.setItem("rememberLogin", "false"); //disables auto-login on logout
+            window.api.logout(); //calls the logout handler to resize window
+        }
+    });
+    loadSettings();
 });
 window.addEventListener("DOMContentLoaded", () => {
     const slider = document.getElementById("timeSlider"); //loads the buttons 
@@ -237,10 +284,13 @@ window.addEventListener("DOMContentLoaded", () => {
         startBtn.disabled = true; //disables the start button 
         startBtn.classList.add("disabled");
         saveTimeGoal(formatTime(remainingSeconds)); //sends the current time to the save recent time goal function
-        window.popupAPI.showPopup({
-            timeText: formatTime(remainingSeconds), //shows popup when timer is started
-            message: "Timer started, have fun!"
-        });
+        const disablePopups = localStorage.getItem("disablePopups") === "true"; //checks if popups are disabled
+        if (!disablePopups) { //only show popup if not disabled
+            window.popupAPI.showPopup({
+                timeText: formatTime(remainingSeconds), //shows popup when timer is started
+                message: "Timer started, have fun!"
+            });
+        }
         let nextPopupAt = remainingSeconds - 1800; //a pop up will show every half an hour from timer start
         if (timerInterval)
             clearInterval(timerInterval);
@@ -248,10 +298,13 @@ window.addEventListener("DOMContentLoaded", () => {
             remainingSeconds--;
             timeDisplay.textContent = formatTime(remainingSeconds);
             if (remainingSeconds === nextPopupAt && remainingSeconds > 0) { //shows pop when the timer detects half an hour
-                window.popupAPI.showPopup({
-                    timeText: formatTime(remainingSeconds), //shows the remaining time
-                    message: getRandomBreakMessage()
-                });
+                const disablePopups = localStorage.getItem("disablePopups") === "true"; //checks if popups are disabled
+                if (!disablePopups) { //only show popup if not disabled
+                    window.popupAPI.showPopup({
+                        timeText: formatTime(remainingSeconds), //shows the remaining time
+                        message: getRandomBreakMessage()
+                    });
+                }
                 nextPopupAt -= 1800; //next popup appears half an hour later
             }
             if (remainingSeconds <= 0) {
@@ -259,10 +312,13 @@ window.addEventListener("DOMContentLoaded", () => {
                 startBtn.disabled = false; //re enables button when time runs out
                 startBtn.classList.remove("disabled");
                 timeDisplay.textContent = "00:00:00";
-                window.popupAPI.showPopup({
-                    timeText: "00:00:00",
-                    message: "Times up, take a break?"
-                });
+                const disablePopups = localStorage.getItem("disablePopups") === "true"; //checks if popups are disabled
+                if (!disablePopups) { //only show popup if not disabled
+                    window.popupAPI.showPopup({
+                        timeText: "00:00:00",
+                        message: "Times up, take a break?"
+                    });
+                }
                 return;
             }
         }, 1000);

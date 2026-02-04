@@ -7,6 +7,7 @@ contextBridge.exposeInMainWorld("api", {
         ipcRenderer.invoke("login-user", { username, password }),
     updateUserProfile: (oldUsername: string, newUsername: string, newEmail: string) =>
         ipcRenderer.invoke("update-user-profile", { oldUsername, newUsername, newEmail }),
+    logout: () => ipcRenderer.send("logout"),
 });
 
 contextBridge.exposeInMainWorld("electronAPI", {

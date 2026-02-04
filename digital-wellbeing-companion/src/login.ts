@@ -1,3 +1,13 @@
+async function checkAutoLogin() {
+    const rememberLogin = localStorage.getItem("rememberLogin") === "true";  //checks if remember login is enabled
+    const userId = localStorage.getItem("userId");  //checks if user ID is saved
+    
+    if (rememberLogin && userId) {
+        (window as any).api.navigate("main.html");  //navigates to main page directly
+        return;
+    }
+}
+
 document.getElementById("register-btn")?.addEventListener("click", () => {  //when create acc is clicked, move to register screen
     (window as any).api.navigate("register.html");
 });
@@ -32,4 +42,8 @@ document.getElementById("login-btn")?.addEventListener("click", async () => {
         console.error("Login error:", error);  //error handling
         alert("An unexpected error occurred while logging in.");
     }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    checkAutoLogin();  //checks if should autologin
 });

@@ -6,7 +6,33 @@ import { updateUserProfile } from "./userService";
 ipcMain.on("navigate", (event, page) => {
     const win = BrowserWindow.fromWebContents(event.sender);
     if (!win) return;
+    
+    if (page === "main.html") {
+        win.setResizable(true);  //enable resizing for main window to fix bug after saving logon settings
+        win.maximize();  //maximize to fullscreen
+        win.setMinimumSize(800, 600);  //set minimum size
+    }
+    
     win.loadFile(path.join(__dirname, `../public/${page}`));
+});
+
+ipcMain.on("logout", (event) => { //handles logout window resize
+    const win = BrowserWindow.fromWebContents(event.sender);
+    if (win) {
+        win.unmaximize();  //unmaximize the window first
+        win.setResizable(false);  //disable resizing
+        
+        setTimeout(() => {
+            win.setSize(400, 600);  //resizes window back to login size (width: 400, height: 600)
+            win.center();  //center the window on screen
+        }, 100);
+        
+        win.loadFile(path.join(__dirname, "../public/login.html"));
+    }
+});
+
+ipcMain.handle("check-remember-login", (event) => { //checks if remember login is enabled
+    return false;  //default to showing login page
 });
 
 let mainWindow: BrowserWindow | null = null;
@@ -15,7 +41,7 @@ function createWindow() {
     if (mainWindow) return;
 
     mainWindow = new BrowserWindow({ //creates the window for application
-        width: 400,  //size of the app window
+        width: 800,  //size of the app window - start at login size
         height: 600,
         resizable: false,
         webPreferences: {
@@ -27,7 +53,7 @@ function createWindow() {
         }
     });
 
-    mainWindow.loadFile(path.join(__dirname, "../public/login.html")); //first window is login 
+    mainWindow.loadFile(path.join(__dirname, "../public/login.html")); //first window is login
 
     mainWindow.on("closed", () => { //ensures window only opens once
         mainWindow = null;

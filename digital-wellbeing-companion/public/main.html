@@ -155,5 +155,48 @@
 
     </div>
 
+    <div id="settings-modal" class="settings-modal">
+        <div class="settings-container">
+            <div class="settings-header">
+                <h2>Settings</h2>
+                <button id="close-settings-btn" class="close-settings-btn" aria-label="Close settings">✕</button>
+            </div>
+
+            <div class="settings-content">
+
+                <div class="settings-group">
+                    <label for="disable-popups-toggle" class="settings-label">Disable pop-ups</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="disable-popups-toggle" class="toggle-checkbox">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="settings-group">
+                    <label for="close-on-exit-toggle" class="settings-label">Close app on window close</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="close-on-exit-toggle" class="toggle-checkbox">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="settings-group">
+                    <label for="remember-login-toggle" class="settings-label">Remember user login</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="remember-login-toggle" class="toggle-checkbox" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-footer">
+                <button id="logout-btn" class="settings-btn settings-logout-btn">⊗ Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings-overlay" class="settings-overlay"></div>
+
 </body>
+
 </html>
