@@ -26,6 +26,10 @@
     </header>
 
     <script src="../dist/mainpage.js"></script>
+    
+    <script src="../dist/dragdrop.js"></script>
+    <script src="../dist/wordsearch.js"></script>
+    <script src="../dist/snake.js"></script>
 
     <div class="left-column">
 
@@ -133,18 +137,18 @@
                     </div>
 
                     <div class="skill-check-item">
-                        <div class="skill-check-title">Drag’n’drop</div>
-                        <button class="skill-check-btn">Play</button>
+                        <div class="skill-check-title">Drag'n'drop</div>
+                        <button class="skill-check-btn" id="dragdrop-play-btn">Play</button>
                     </div>
 
                     <div class="skill-check-item">
                         <div class="skill-check-title">Word search</div>
-                        <button class="skill-check-btn">Play</button>
+                        <button class="skill-check-btn" id="wordsearch-play-btn">Play</button>
                     </div>
 
                     <div class="skill-check-item">
                         <div class="skill-check-title">Snake game</div>
-                        <button class="skill-check-btn">Play</button>
+                        <button class="skill-check-btn" id="snake-play-btn">Play</button>
                     </div>
 
                 </div>
@@ -154,6 +158,44 @@
         </div>
 
     </div>
+
+    <div id="dragdrop-modal" class="game-modal">
+        <div class="game-container">
+            <div class="game-header">
+                <h2>Drag'n'drop</h2>
+                <button id="dragdrop-close-btn" class="game-close-btn" aria-label="Close game">✕</button>
+            </div>
+            <div class="game-content" id="dragdrop-game">
+                <p>Game content will load here</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="wordsearch-modal" class="game-modal">
+        <div class="game-container">
+            <div class="game-header">
+                <h2>Word Search</h2>
+                <button id="wordsearch-close-btn" class="game-close-btn" aria-label="Close game">✕</button>
+            </div>
+            <div class="game-content" id="wordsearch-game">
+                <p>Game content will load here</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="snake-modal" class="game-modal">
+        <div class="game-container">
+            <div class="game-header">
+                <h2>Snake Game</h2>
+                <button id="snake-close-btn" class="game-close-btn" aria-label="Close game">✕</button>
+            </div>
+            <div class="game-content" id="snake-game">
+                <p>Game content will load here</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-overlay"></div>
 
     <div id="settings-modal" class="settings-modal">
         <div class="settings-container">
