@@ -8,6 +8,8 @@ contextBridge.exposeInMainWorld("api", {
     updateUserProfile: (oldUsername: string, newUsername: string, newEmail: string) =>
         ipcRenderer.invoke("update-user-profile", { oldUsername, newUsername, newEmail }),
     logout: () => ipcRenderer.send("logout"),
+    awardPoints: (userId: number, delta: number, game?: string) =>
+        ipcRenderer.invoke("award-points", { userId, delta, game })
 });
 
 contextBridge.exposeInMainWorld("electronAPI", {
@@ -52,6 +54,25 @@ declare global {
             stop: () => void;
             onFocusUpdate: (callback: (data: any) => void) => void;
             onReset: (callback: () => void) => void;
+        };
+    }
+}
+
+declare global {
+    interface AwardPointsResult {
+        success: boolean;
+        points?: number;
+        error?: string;
+    }
+
+    interface Window {
+        api: {
+            navigate: (page: string) => void;
+            registerUser: (user: any) => Promise<any>;
+            loginUser: (username: string, password: string) => Promise<any>;
+            updateUserProfile: (oldUsername: string, newUsername: string, newEmail: string) => Promise<any>;
+            logout: () => void;
+            awardPoints: (userId: number, delta: number, game?: string) => Promise<AwardPointsResult>;
         };
     }
 }

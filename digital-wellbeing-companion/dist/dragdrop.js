@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     zone.appendChild(draggedEl);
                     zone.dataset.filled = "true";
                     placedCount += 1;
-                    checkCompletion();
+                    void checkCompletion();
                 }
                 else {
                     zone.classList.add("wrong");
@@ -150,10 +150,49 @@ document.addEventListener("DOMContentLoaded", () => {
             { label: "Close", action: () => { closeGame(); } }
         ]);
     }
-    function checkCompletion() {
+    async function checkCompletion() {
         if (placedCount >= totalTargets) { //checks if all shapes have been placed correctly 
             stopTimer();
-            showGameMessage("Well done!", "Game completeted! Points will be awarded.", [
+            const timeTaken = DEFAULT_TIME_SECONDS - remainingSeconds; // seconds elapsed
+            let delta = 0;
+            if (timeTaken <= 20)
+                delta = 100; //awards points based on how quickly the user completed the game
+            else if (timeTaken <= 30)
+                delta = 50;
+            else if (timeTaken <= 60)
+                delta = 20;
+            let awardedText = "No points awarded."; //message if no points are awarded
+            try {
+                if (delta > 0) {
+                    const userIdStr = localStorage.getItem("userId"); //checks the user has a valid ID and is logged in before adding points
+                    if (userIdStr) {
+                        const res = await window.api.awardPoints(Number(userIdStr), delta, "dragdrop");
+                        if (res && res.success && typeof res.points === "number") {
+                            localStorage.setItem("points", String(res.points));
+                            const profilePointsEl = document.getElementById("profile-points");
+                            if (profilePointsEl)
+                                profilePointsEl.value = String(res.points);
+                            awardedText = `You earned ${delta} points!`; //succes message, taken from the wordsearch code
+                        }
+                        else {
+                            console.error("awardPoints failed:", res); //error message incase the points system crashes
+                        }
+                    }
+                    else {
+                        const cur = Number(localStorage.getItem("points") ?? "0"); //will award no points if the account is not present
+                        const newTotal = cur + delta;
+                        localStorage.setItem("points", String(newTotal));
+                        const profilePointsEl = document.getElementById("profile-points");
+                        if (profilePointsEl)
+                            profilePointsEl.value = String(newTotal);
+                        awardedText = `You earned ${delta} points!`; //fallback message if the user is logged out midway through the game
+                    }
+                }
+            }
+            catch (e) {
+                console.error("Error awarding points (dragdrop):", e); //error message
+            }
+            showGameMessage("Well done!", `Game completed in ${formatTime(timeTaken)}. ${awardedText}`, [
                 { label: "Close", action: () => { closeGame(); } },
                 { label: "Play again", action: () => { initializeDragDropGame(); } }
             ]);

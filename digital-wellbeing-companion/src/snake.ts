@@ -155,7 +155,7 @@
             body.style.boxSizing = "border-box";
 
             const arenaCol = document.createElement("div");
-            arenaCol.id = "snake-arena-container";  //this is the container for the canvas, it is used to add padding under the canvas to match the spacing in the word search game
+            arenaCol.id = "snake-arena-container";  //this is the container for the canvas, it is used to add padding under the canvas to match the spacing similar to the word search game
             arenaCol.style.flex = "1";
             arenaCol.style.display = "flex";
             arenaCol.style.justifyContent = "center";
@@ -310,10 +310,11 @@
                 this.intervalId = null;
             }
             const elapsed = this.startTime ? (Date.now() - this.startTime) : 0;
+            const elapsedSec = Math.floor(elapsed / 1000);
 
             this.stopTimer();  //stops the timer when the game is over
 
-            this.flashGameOver().then(() => {  //flashes the screen red to indicate game over then shows the game over message and options
+            this.flashGameOver().then(async () => {  //flashes the screen red to indicate game over then shows the game over message and options
                 this.ctx.fillStyle = "rgba(0,0,0,0.6)";  //dark overlay to make the game over message more visible
                 this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
                 this.ctx.fillStyle = "#fff";
@@ -323,7 +324,39 @@
 
                 if (this.onGameOver) this.onGameOver();
 
-                this.showGameMessage("Game Over", `You survived ${this.formatTime(elapsed)}.`, [  //shows the game over message with the time survived and options to restart or quit
+                const initialLength = 2;  //starts the snake off at 2 pixels in lenghth
+                const foodsCollected = Math.max(0, this.snake.length - initialLength);  //calculates the number of food collected based on the length of the snake
+                const minutesSurvived = Math.floor(elapsedSec / 60);
+                const delta = foodsCollected * 10 + minutesSurvived * 20;  //calculates the points to be awarded based on the food collected and time survive
+
+                let awardedText = "No points awarded.";  //deafult message if the game fails to award points 
+                try {
+                    if (delta > 0) {
+                        const userIdStr = localStorage.getItem("userId");  //checks if the user is logged in and has a valid ID
+                        if (userIdStr) {
+                            const res = await (window as any).api.awardPoints(Number(userIdStr), delta, "snake");
+                            if (res && res.success && typeof res.points === "number") {
+                                localStorage.setItem("points", String(res.points));
+                                const profilePointsEl = document.getElementById("profile-points") as HTMLInputElement | null;
+                                if (profilePointsEl) profilePointsEl.value = String(res.points);
+                                awardedText = `You earned ${delta} points!`;  //message to show how many points were earned
+                            } else {
+                                console.error("awardPoints failed:", res);  //error message if system crashes
+                            }
+                        } else {
+                            const cur = Number(localStorage.getItem("points") ?? "0");  //databse will update when a user logs back in
+                            const newTotal = cur + delta;
+                            localStorage.setItem("points", String(newTotal));
+                            const profilePointsEl = document.getElementById("profile-points") as HTMLInputElement | null;
+                            if (profilePointsEl) profilePointsEl.value = String(newTotal);
+                            awardedText = `You earned ${delta} points!`;  //fallback system and message if the user is logged out mid way through the game
+                        }
+                    }
+                } catch (e) {
+                    console.error("Error awarding the points (snake):", e);  //error message 
+                }
+
+                this.showGameMessage("Game Over", `You survived ${this.formatTime(elapsed)}. ${awardedText}`, [  //shows the game over message with the time survived and options to restart or quit
                     { label: "Restart Game", action: () => { this.resetState(); this.start(); } },
                     { label: "Quit Game", action: () => { this.stop(); const modal = document.getElementById("snake-modal"); const overlay = document.querySelector(".game-overlay"); modal?.classList.remove("active"); overlay?.classList.remove("active"); } }
                 ]);

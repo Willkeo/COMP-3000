@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (e.key === "Enter")
                 handleSubmit();
         });
-        function handleSubmit() {
+        async function handleSubmit() {
             const raw = inputEl.value.trim().toUpperCase(); //reads the users input and formats it for checking
             if (raw === "")
                 return; //will ignore empty submissions
@@ -109,8 +109,51 @@ document.addEventListener("DOMContentLoaded", () => {
             ]);
             if (foundWords.size === placedWords.length) {
                 stopTimer();
-                const elapsed = formatElapsedSeconds(Math.floor(((Date.now() - (timeStart ?? Date.now())) / 1000))); //when a user complete the word search they will be shown a message 
-                showGameMessage("Well done!", `All words found in ${elapsed}.`, [
+                const elapsedSec = Math.floor(((Date.now() - (timeStart ?? Date.now())) / 1000)); //calculates the time in seconds to determine the points awarded to the user
+                const basePerWord = 5;
+                const base = foundWords.size * basePerWord; //the base points are calculated based on the number of words found
+                const bonus = elapsedSec <= 120 ? 50 : 20; //bonus points are awarded based on how quickly the user completed the game
+                const delta = base + bonus;
+                console.debug("[wordsearch] completion", { elapsedSec, base, bonus, delta }); //debug log for the points awarded and time taken for completion
+                let awardedText = "No points were awarded."; //this is a fallback message incase of faliuer
+                try {
+                    if (delta > 0) {
+                        const userIdStr = localStorage.getItem("userId");
+                        if (userIdStr) {
+                            const res = await window.api.awardPoints(Number(userIdStr), delta, "wordsearch"); //awards the points to the user using the ipc handler. This updates the database and returns the new total points for the user
+                            if (res && res.success && typeof res.points === "number") {
+                                localStorage.setItem("points", String(res.points));
+                                const profilePointsEl = document.getElementById("profile-points");
+                                if (profilePointsEl)
+                                    profilePointsEl.value = String(res.points);
+                                awardedText = `You earned ${delta} points!`; //success message for points awarded
+                            }
+                            else {
+                                console.error("awardPoints failed:", res);
+                                const cur = Number(localStorage.getItem("points") ?? "0");
+                                const newTotal = cur + delta;
+                                localStorage.setItem("points", String(newTotal));
+                                const profilePointsEl = document.getElementById("profile-points");
+                                if (profilePointsEl)
+                                    profilePointsEl.value = String(newTotal);
+                            }
+                        }
+                        else {
+                            const cur = Number(localStorage.getItem("points") ?? "0"); //if the user is not logged in or there is an issue with awarding points.
+                            const newTotal = cur + delta; //thi is used as fallback to stop the point system from crashing
+                            localStorage.setItem("points", String(newTotal));
+                            const profilePointsEl = document.getElementById("profile-points");
+                            if (profilePointsEl)
+                                profilePointsEl.value = String(newTotal);
+                            awardedText = `You earned ${delta} points!`; //fallback message
+                        }
+                    }
+                }
+                catch (e) {
+                    console.error("Error awarding points (wordsearch):", e); //error message
+                }
+                const elapsed = formatElapsedSeconds(elapsedSec); //when a user complete the word search they will be shown a message 
+                showGameMessage("Well done!", `All words found in ${elapsed}. ${awardedText}`, [
                     { label: "Play again", action: () => { initializeWordSearchGame(); } },
                     { label: "Close", action: () => { closeGame(); } }
                 ]);

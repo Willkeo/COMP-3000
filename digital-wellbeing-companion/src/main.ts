@@ -2,6 +2,7 @@ import { app, screen, BrowserWindow, globalShortcut, ipcMain } from "electron";
 import * as path from "path";
 import { registerUser, loginUser } from "./userService";
 import { updateUserProfile } from "./userService";
+import { addPoints } from "./userService";
 
 ipcMain.on("navigate", (event, page) => {
     const win = BrowserWindow.fromWebContents(event.sender);
@@ -141,6 +142,19 @@ ipcMain.handle("login-user", async (event, credentials) => { //sends data to log
 
 ipcMain.handle("update-user-profile", (_, data) => {
     return updateUserProfile(data.oldUsername, data.newUsername, data.newEmail); //sends request to edit user details to preload
+});
+
+ipcMain.handle("award-points", async (_event, data) => {  //handler to award points to the user
+    try {
+        const userId = Number(data.userId);
+        const delta = Number(data.delta) || 0;
+        if (!Number.isFinite(userId) || userId <= 0) throw new Error("Invalid userId");  //will error out if the user does not exist, this is just as a safety check
+        const newTotal = addPoints(userId, delta);
+        return { success: true, points: newTotal };
+    } catch (err: any) {
+        console.error("award-points error:", err?.message ?? err);  //error messages for handling point issues
+        return { success: false, error: err?.message ?? String(err) };
+    }
 });
 
 app.whenReady().then(() => {

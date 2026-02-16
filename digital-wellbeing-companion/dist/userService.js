@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerUser = registerUser;
 exports.loginUser = loginUser;
 exports.updateUserProfile = updateUserProfile;
+exports.addPoints = addPoints;
 const database_1 = __importDefault(require("./database")); //loads database data
 const bcrypt_1 = __importDefault(require("bcrypt"));
 function registerUser(user) {
@@ -45,6 +46,25 @@ newUsername, newEmail) {
     catch (error) {
         console.error("Profile updating had an error:", error.message); //error message incase of faliure
         return false;
+    }
+}
+function addPoints(userId, delta) {
+    try {
+        const tx = database_1.default.transaction((id, d) => {
+            const update = database_1.default.prepare("UPDATE users SET points = points + ? WHERE id = ?");
+            const info = update.run(d, id);
+            if (info.changes === 0)
+                throw new Error("User not found");
+            const getStmt = database_1.default.prepare("SELECT points FROM users WHERE id = ?");
+            const rawRow = getStmt.get(id);
+            const points = (rawRow && typeof rawRow.points === "number") ? rawRow.points : Number(rawRow?.points ?? 0);
+            return points;
+        });
+        return tx(userId, delta);
+    }
+    catch (error) {
+        console.error("addPoints error:", error?.message ?? error);
+        throw error;
     }
 }
 //# sourceMappingURL=userService.js.map

@@ -53,3 +53,22 @@ export function updateUserProfile(  //the edit user function
         return false;
     }
 }
+
+export function addPoints(userId: number, delta: number): number { //function to add points to the user
+    try {
+        const tx = db.transaction((id: number, d: number) => {
+            const update = db.prepare("UPDATE users SET points = points + ? WHERE id = ?");  //updates the points in the database
+            const info = update.run(d, id);
+            if (info.changes === 0) throw new Error("User was not found");  //error message if the user is not found
+
+            const getStmt = db.prepare("SELECT points FROM users WHERE id = ?");  //gets the new points total for the user
+            const rawRow: any = getStmt.get(id);
+            const points = (rawRow && typeof rawRow.points === "number") ? rawRow.points : Number(rawRow?.points ?? 0);  //handles the points data and makes sure it is a number
+            return points;
+        });
+        return tx(userId, delta);
+    } catch (error: any) {
+        console.error("addPoints error:", error?.message ?? error);  //error message for any issues
+        throw error;
+    }
+}

@@ -40,6 +40,7 @@ const electron_1 = require("electron");
 const path = __importStar(require("path"));
 const userService_1 = require("./userService");
 const userService_2 = require("./userService");
+const userService_3 = require("./userService");
 electron_1.ipcMain.on("navigate", (event, page) => {
     const win = electron_1.BrowserWindow.fromWebContents(event.sender);
     if (!win)
@@ -154,6 +155,20 @@ electron_1.ipcMain.handle("login-user", async (event, credentials) => {
 });
 electron_1.ipcMain.handle("update-user-profile", (_, data) => {
     return (0, userService_2.updateUserProfile)(data.oldUsername, data.newUsername, data.newEmail); //sends request to edit user details to preload
+});
+electron_1.ipcMain.handle("award-points", async (_event, data) => {
+    try {
+        const userId = Number(data.userId);
+        const delta = Number(data.delta) || 0;
+        if (!Number.isFinite(userId) || userId <= 0)
+            throw new Error("Invalid userId"); //will error out if the user does not exist, this is just as a safety check
+        const newTotal = (0, userService_3.addPoints)(userId, delta);
+        return { success: true, points: newTotal };
+    }
+    catch (err) {
+        console.error("award-points error:", err?.message ?? err); //error messages for handling point issues
+        return { success: false, error: err?.message ?? String(err) };
+    }
 });
 electron_1.app.whenReady().then(() => {
     createWindow();

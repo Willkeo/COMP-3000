@@ -7,6 +7,7 @@ electron_1.contextBridge.exposeInMainWorld("api", {
     loginUser: (username, password) => electron_1.ipcRenderer.invoke("login-user", { username, password }),
     updateUserProfile: (oldUsername, newUsername, newEmail) => electron_1.ipcRenderer.invoke("update-user-profile", { oldUsername, newUsername, newEmail }),
     logout: () => electron_1.ipcRenderer.send("logout"),
+    awardPoints: (userId, delta, game) => electron_1.ipcRenderer.invoke("award-points", { userId, delta, game })
 });
 electron_1.contextBridge.exposeInMainWorld("electronAPI", {
     hideWindow: () => electron_1.ipcRenderer.send("hide-window")
