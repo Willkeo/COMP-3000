@@ -1,4 +1,8 @@
 "use strict";
+//References for game logic used in the drag and drop:
+//HTML5 Drag and Drop API: https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
+//DOM manipulation & event handling patterns: https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model
+//Shuffle utility(Fisher–Yates): https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
 document.addEventListener("DOMContentLoaded", () => {
     const gameContainer = document.getElementById("dragdrop-game"); //gets the games main container
     const gameModal = document.getElementById("dragdrop-modal");

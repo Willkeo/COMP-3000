@@ -1,3 +1,10 @@
+//References for functions used in this development file:
+//Electron app / BrowserWindow / ipcMain: https://www.electronjs.org/docs/latest/api/app
+//BrowserWindow options & security recommendations: https://www.electronjs.org/docs/latest/tutorial/security
+//globalShortcut API: https://www.electronjs.org/docs/latest/api/global-shortcut
+//Screen / display bounds:  https://www.electronjs.org/docs/latest/api/screen
+//active-win (native active window):  https://github.com/sindresorhus/active-win
+
 import { app, screen, BrowserWindow, globalShortcut, ipcMain } from "electron";
 import * as path from "path";
 import { registerUser, loginUser } from "./userService";
@@ -236,3 +243,8 @@ ipcMain.handle("stop-app-tracker", () => {  //when app is closed, it will send t
         appInterval = null;
     }
 });
+
+
+
+
+

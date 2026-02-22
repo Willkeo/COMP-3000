@@ -1,3 +1,8 @@
+ //References for logic used in the word search:
+ //Fisher–Yates shuffle(array shuffling): https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+ //Wordsearch placement / brute force / backtracking concepts: https://www.geeksforgeeks.org/word-search-puzzle-creator/
+ //Accessibility & focus management patterns: https://developer.mozilla.org/en-US/docs/Web/Access
+
 document.addEventListener("DOMContentLoaded", () => {
     const gameContainer = document.getElementById("wordsearch-game") as HTMLElement;  //gets the games main container
     const gameModal = document.getElementById("wordsearch-modal") as HTMLElement;  
@@ -22,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cleanupGame();
     }
 
-    function cleanupGame() {
+    function cleanupGame() {  //cleans up the game content and stops the timer, so it can be ready for re launch
         if (timerInterval !== null) {
             clearInterval(timerInterval);
             timerInterval = null;

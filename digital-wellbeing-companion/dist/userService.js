@@ -1,4 +1,8 @@
 "use strict";
+//References for functions used in this development file:
+//bcrypt (password hashing): https://www.npmjs.com/package/bcrypt
+//Password storage best practices (OWASP): https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
+//Using prepared statements with better-sqlite3 (prevents injection): https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/api.md
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -51,19 +55,19 @@ newUsername, newEmail) {
 function addPoints(userId, delta) {
     try {
         const tx = database_1.default.transaction((id, d) => {
-            const update = database_1.default.prepare("UPDATE users SET points = points + ? WHERE id = ?");
+            const update = database_1.default.prepare("UPDATE users SET points = points + ? WHERE id = ?"); //updates the points in the database
             const info = update.run(d, id);
             if (info.changes === 0)
-                throw new Error("User not found");
-            const getStmt = database_1.default.prepare("SELECT points FROM users WHERE id = ?");
+                throw new Error("User was not found"); //error message if the user is not found
+            const getStmt = database_1.default.prepare("SELECT points FROM users WHERE id = ?"); //gets the new points total for the user
             const rawRow = getStmt.get(id);
-            const points = (rawRow && typeof rawRow.points === "number") ? rawRow.points : Number(rawRow?.points ?? 0);
+            const points = (rawRow && typeof rawRow.points === "number") ? rawRow.points : Number(rawRow?.points ?? 0); //handles the points data and makes sure it is a number
             return points;
         });
         return tx(userId, delta);
     }
     catch (error) {
-        console.error("addPoints error:", error?.message ?? error);
+        console.error("addPoints error:", error?.message ?? error); //error message for any issues
         throw error;
     }
 }

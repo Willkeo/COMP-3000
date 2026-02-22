@@ -1,4 +1,9 @@
-﻿document.addEventListener("DOMContentLoaded", () => {
+﻿//References for game logic used.
+//Canvas 2D API(rendering): https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
+//Game loop / timers: https://developer.mozilla.org/en-US/docs/Games/Techniques/Timers
+//Page visibility & input handling: https://developer.mozilla.org/en-US/docs/Web/API/Document
+  
+document.addEventListener("DOMContentLoaded", () => {
     const gameContainer = document.getElementById("snake-game") as HTMLElement;  //gets the game main container
     const gameModal = document.getElementById("snake-modal") as HTMLElement;
     const gameOverlay = document.querySelector(".game-overlay") as HTMLElement;  //gets the overlay

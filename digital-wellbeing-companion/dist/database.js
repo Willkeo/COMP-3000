@@ -1,4 +1,8 @@
 "use strict";
+//References for functions used in this development file:
+//better-sqlite3 (sync SQLite for Node): https://github.com/JoshuaWise/better-sqlite3
+//SQLite documentation & data file handling: https://www.sqlite.org/docs.html
+//Node.js fs / path usage patterns: https://nodejs.org/api/fs.html, https://nodejs.org/api/path.html
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);

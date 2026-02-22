@@ -1,6 +1,9 @@
+/*REDESIGN WAS DONE BY INSERTING CODE INTO CHATGPT AND ASKING FOR COLOUR CHANGES*/
+/*CREDIT TO OPEN AI FOR SOME OF THE CODE*/
+
 input, button, textarea {
-    pointer-events: auto !important;
-}
+    pointer-events: auto !important;  
+}                                    
 
 body {
     font-family: Arial, sans-serif;

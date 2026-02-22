@@ -1,6 +1,11 @@
+//References to API documentation i used in this development file:
+//Electron contextBridge / ipcRenderer: https://www.electronjs.org/docs/latest/api/context-bridge
+//Secure IPC & contextIsolation guidance: https://www.electronjs.org/docs/latest/tutorial/security
+//TypeScript declaration merging (global/window): https://www.typescriptlang.org/docs/handbook/declaration-merging.html
+
 import { contextBridge, ipcRenderer } from "electron";
 
-contextBridge.exposeInMainWorld("api", {
+contextBridge.exposeInMainWorld("api", {  //exposes the functions to the renderer process
     navigate: (page: string) => ipcRenderer.send("navigate", page),
     registerUser: (user: any) => ipcRenderer.invoke("register-user", user),
     loginUser: (username: string, password: string) =>
@@ -8,6 +13,7 @@ contextBridge.exposeInMainWorld("api", {
     updateUserProfile: (oldUsername: string, newUsername: string, newEmail: string) =>
         ipcRenderer.invoke("update-user-profile", { oldUsername, newUsername, newEmail }),
     logout: () => ipcRenderer.send("logout"),
+
     awardPoints: (userId: number, delta: number, game?: string) =>
         ipcRenderer.invoke("award-points", { userId, delta, game })
 });
@@ -31,7 +37,7 @@ contextBridge.exposeInMainWorld("appTrackerAPI", {
 
 export { };
 
-declare global {
+declare global {  //declares the functions to be used in the renderer process
     interface Window {
         electronAPI: {
             hideWindow: () => void;
@@ -76,3 +82,6 @@ declare global {
         };
     }
 }
+
+
+

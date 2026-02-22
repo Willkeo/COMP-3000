@@ -1,4 +1,9 @@
-﻿document.addEventListener("DOMContentLoaded", () => {
+﻿//References for game logic used in the drag and drop:
+//HTML5 Drag and Drop API: https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
+//DOM manipulation & event handling patterns: https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model
+//Shuffle utility(Fisher–Yates): https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+
+document.addEventListener("DOMContentLoaded", () => {
     const gameContainer = document.getElementById("dragdrop-game") as HTMLElement;  //gets the games main container
     const gameModal = document.getElementById("dragdrop-modal") as HTMLElement;
     const gameOverlay = document.querySelector(".game-overlay") as HTMLElement;  //gets the overlay
@@ -266,7 +271,7 @@
         actionsContainer.style.justifyContent = "center";
         actionsContainer.style.gap = "10px";
 
-        actions.forEach(a => {
+        actions.forEach(a => {  //creates buttons for each user action
             const btn = document.createElement("button");
             btn.textContent = a.label;
             btn.style.padding = "8px 12px";

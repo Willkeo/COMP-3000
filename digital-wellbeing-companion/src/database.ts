@@ -1,3 +1,8 @@
+//References for functions used in this development file:
+//better-sqlite3 (sync SQLite for Node): https://github.com/JoshuaWise/better-sqlite3
+//SQLite documentation & data file handling: https://www.sqlite.org/docs.html
+//Node.js fs / path usage patterns: https://nodejs.org/api/fs.html, https://nodejs.org/api/path.html
+
 import Database from "better-sqlite3";
 import * as path from "path";
 import * as fs from "fs";

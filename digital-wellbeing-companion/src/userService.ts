@@ -1,3 +1,8 @@
+//References for functions used in this development file:
+//bcrypt (password hashing): https://www.npmjs.com/package/bcrypt
+//Password storage best practices (OWASP): https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
+//Using prepared statements with better-sqlite3 (prevents injection): https://github.com/JoshuaWise/better-sqlite3/blob/master/docs/api.md
+
 import db from "./database";  //loads database data
 import bcrypt from "bcrypt";
 
@@ -72,3 +77,6 @@ export function addPoints(userId: number, delta: number): number { //function to
         throw error;
     }
 }
+
+
+

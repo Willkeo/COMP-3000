@@ -1,4 +1,8 @@
 "use strict";
+//References to API documentation i used in this development file:
+//Electron contextBridge / ipcRenderer: https://www.electronjs.org/docs/latest/api/context-bridge
+//Secure IPC & contextIsolation guidance: https://www.electronjs.org/docs/latest/tutorial/security
+//TypeScript declaration merging (global/window): https://www.typescriptlang.org/docs/handbook/declaration-merging.html
 Object.defineProperty(exports, "__esModule", { value: true });
 const electron_1 = require("electron");
 electron_1.contextBridge.exposeInMainWorld("api", {

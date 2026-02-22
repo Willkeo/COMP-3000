@@ -1,3 +1,9 @@
+//References for APIs used in this file:
+//localStorage (Web Storage API): https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+//FileReader API (readAsDataURL): https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+//window.setInterval / requestAnimationFrame usage: https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval
+//Accessibility & focus management best practices: https://developer.mozilla.org/en-US/docs/Web/Accessibility
+ 
 document.addEventListener("keydown", (e) => {
     console.log("KEY:", e.key, "TARGET:", e.target); //debugging to check the keyboard is being registered
 }, true);
@@ -151,6 +157,44 @@ document.addEventListener("DOMContentLoaded", () => {
         return `${pad(h)}:${pad(m)}:${pad(s)}`;
     }
 
+    function getPoints(): number {  //function for the streak bonus points
+        return Number(localStorage.getItem("points") ?? "0");
+    }
+
+    function setPoints(value: number) {
+        localStorage.setItem("points", value.toString());  //stores the points in local storage
+        const pointsEl = document.getElementById("profile-points") as HTMLInputElement | null;  //updates the points in the profile section
+        if (pointsEl) pointsEl.value = value.toString();
+    }
+
+    function awardStreakBonus(userId: string, streak: number) {  //this function awards users for keeping up a streak
+        if (streak <= 0 || streak % 5 !== 0) return;
+
+        const bonusKey = `streakBonusLastAward_${userId}`;
+        const lastAwardedStr = localStorage.getItem(bonusKey);
+        const lastAwarded = lastAwardedStr ? Number(lastAwardedStr) : null;
+
+        if (lastAwarded === streak) return;  //ensures that user can only receive the bonus once per streak milestone
+
+        const oldPoints = getPoints();  //gets the current points to add the bonus to
+        const newPoints = oldPoints + 500;
+        setPoints(newPoints);
+        localStorage.setItem(bonusKey, streak.toString());
+
+        const message = `You earned 500 points for a ${streak}-day streak.`;  //message to be shown to users for getting the points bonus
+
+        const disablePopups = localStorage.getItem("disablePopups") === "true";  //checks if popups are disabled
+        if (!disablePopups && (window as any).popupAPI && typeof (window as any).popupAPI.showPopup === "function") {  //popup to show the user they have received the bonus points
+            (window as any).popupAPI.showPopup({
+                timeText: "",
+                message
+            });
+        } else {
+
+            alert(message);
+        }
+    }
+
     function updateStreak(userId: string) {
         const { streakKey, lastOpenKey } = getStreakKeys(userId);
 
@@ -178,6 +222,8 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem(lastOpenKey, todayStr);
 
         updateStreakUI(streak);
+
+        awardStreakBonus(userId, streak);  //helper for users to receive points for keeping up a streak
     }
 
     function updateStreakUI(streak: number) {
@@ -336,7 +382,7 @@ window.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    //load history on startup
+    //loads the history on startup
     loadGoalHistory();
 
 

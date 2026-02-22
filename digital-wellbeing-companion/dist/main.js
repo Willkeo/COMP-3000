@@ -1,4 +1,10 @@
 "use strict";
+//References for functions used in this development file:
+//Electron app / BrowserWindow / ipcMain: https://www.electronjs.org/docs/latest/api/app
+//BrowserWindow options & security recommendations: https://www.electronjs.org/docs/latest/tutorial/security
+//globalShortcut API: https://www.electronjs.org/docs/latest/api/global-shortcut
+//Screen / display bounds:  https://www.electronjs.org/docs/latest/api/screen
+//active-win (native active window):  https://github.com/sindresorhus/active-win
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
