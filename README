@@ -1,1 +1,52 @@
 COMP 3000 project: Digital wellbeing companion
+
+Project Overview:
+My project is known as Digital Wellbeing Companion and is a desktop application designed to help users manage unhealthy screen time habits and encourage them to manage the amount of time they spend digitally. The app will run in the background of users desktops and act as a minimal disruption program, all the while providing users with time goal reminders and ways for easy access, helping users take healthy breaks and be more effective with their screentime.
+The main userbase it is aimed at are people who spend long periods of time online, such as students, gamers and remote workers. It is designed to allow for people of all ages to use easily aswell, with the skill-check games included being simple enought for even the youngest of users to complete.
+
+Key features:
+1. Screen time tracking and application tracking.
+2. Screen time goal setting, giving users the abaility to set their own time limits.
+3. Pop-up break reminders, these appear throughout a time goal and will encourage users to keep an eye on how long they have spend on a screen.
+4. Points reward system, for users to earn score on their profile via the mini skill check games.
+5. Skill check games, simple mini-games for users to use a quick distraction from their current online activity.
+6. Profile customisation, users can change their profile picture aswell as display email and username.
+7. Recent time goal tracking, users will be able to keep track of their process and veiw recent time goals they have set themselves.
+8. Adaptive settings screen, giving users the oppitunity to manage some of the aspects of the app.
+
+Reason behind the project:
+Main main problem i was trying to tackle with this project was the negative effects that computers have on peoples mental health. Excessive screen time can have unhealthy effects on both someones mental and physcial wellbeing and i wanted to create something that could help limit this. Coming from someone who spent alot of time playing games and knows the reprecussions of spending far too long online, this app aims to encourage and support people in similar situations without punishing or using disiplenary tactics.
+
+Languages and frameoworks used:
+- TypeScript used for main fucntionality.
+- CSS used for frontend design. 
+- HTML for frontend.
+- SQL lite used for database management.
+- Electron used as the base application model.
+- Bcrypt used for password encryption.
+- Github was used for commiting and version control.
+- Microsoft Visual Studio was used as the development enviroment.
+
+Installation and usage instructions:
+1. Download Github Contents from this repository.
+2. Open the project in visual studio version of your choice.
+3. Run and build using the 'npm start' in package manager console.
+
+4. Once in the app you can:
+  -Edit profile infomation by clicking the edit profile button then reclicking to save.	
+  -Use the slider on the time goal section to set a duration then press the start button.
+  -Access any of the minigames by pressing the start button underneath their names.
+  -Hide the application by pressing the minimise button (in red) and then can re-open the app using shortcut ALT + a.
+  -Settings can be opened by clicking the cog icon in the top right and can used to logout from the app.
+
+Future improvements (As of current):
+- Adding a mobile version of the app to phones.
+- Add more flexiblity to the time tracking.
+- Adding a scoring system when users successfully meet their time goals.
+- Minor bug fixes.
+- Allow for password editing and forgot password feature.	
+
+Author:
+Will Keogh
+Will.keogh@students.plymouth.ac.uk
+10769522	

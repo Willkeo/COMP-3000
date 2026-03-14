@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         initializeSnakeGame();  //initializes the game so that everything loads correctly
     });
 
-    closeBtn?.addEventListener("click", closeGame);
+    closeBtn?.addEventListener("click", closeGame);  //sends close signal 
     gameOverlay?.addEventListener("click", closeGame);
 
     let currentGame: SnakeGame | null = null;
