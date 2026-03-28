@@ -177,10 +177,21 @@ app.whenReady().then(() => {
         }
     });
 
-    ipcMain.on("hide-window", () => { //hides window on click
+    ipcMain.on("hide-window", () => { //hides window on click and shows a popup to inform user
         if (mainWindow) {
             mainWindow.hide();
             mainWindow.setSkipTaskbar(true);
+
+            
+            const popupData = {   //data to be sent to the popup
+                timeText: "",
+                message: "Press Alt + A to reopen."  //message to show on the popup
+            };
+
+            createPopupWindow();
+            popupWindow?.webContents.once("did-finish-load", () => {
+                popupWindow?.webContents.send("set-popup-data", popupData);
+            });
         }
     });
 

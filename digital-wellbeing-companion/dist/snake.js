@@ -14,8 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         gameOverlay.classList.add("active");
         initializeSnakeGame(); //initializes the game so that everything loads correctly
     });
-    closeBtn?.addEventListener("click", closeGame); //sends close signal 
-    gameOverlay?.addEventListener("click", closeGame);
+    closeBtn?.addEventListener("click", closeGame); //sends close signal and only closes on the close button
     let currentGame = null;
     function closeGame() {
         gameModal.classList.remove("active"); //closes the game screen

@@ -14,11 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
         gameOverlay.classList.add("active");
         initializeWordSearchGame(); //initializes the game for loading
     });
-    closeBtn?.addEventListener("click", closeGame);
-    gameOverlay?.addEventListener("click", closeGame);
+    closeBtn?.addEventListener("click", closeGame); //game will only close on the close button to prevent accidental closure
     let timerInterval = null;
     function closeGame() {
-        gameModal.classList.remove("active"); // closes the game screen
+        gameModal.classList.remove("active"); //closes the game screen
         gameOverlay.classList.remove("active");
         cleanupGame();
     }

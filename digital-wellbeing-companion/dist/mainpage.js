@@ -129,6 +129,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (pointsEl)
             pointsEl.value = value.toString();
     }
+    function settingsKey(key) {
+        return `${key}_${userId}`;
+    }
+    function isPopupsDisabled() {
+        return localStorage.getItem(settingsKey("disablePopups")) === "true"; //checks if the user has the button switched
+    }
     function awardStreakBonus(userId, streak) {
         if (streak <= 0 || streak % 5 !== 0)
             return;
@@ -142,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setPoints(newPoints);
         localStorage.setItem(bonusKey, streak.toString());
         const message = `You earned 500 points for a ${streak}-day streak.`; //message to be shown to users for getting the points bonus
-        const disablePopups = localStorage.getItem("disablePopups") === "true"; //checks if popups are disabled
+        const disablePopups = isPopupsDisabled(); //checks if popups are disabled (now per-user)
         if (!disablePopups && window.popupAPI && typeof window.popupAPI.showPopup === "function") { //popup to show the user they have received the bonus points
             window.popupAPI.showPopup({
                 timeText: "",
@@ -204,7 +210,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeOnExitToggle = document.getElementById("close-on-exit-toggle");
     const rememberLoginToggle = document.getElementById("remember-login-toggle");
     function loadSettings() {
-        const disablePopups = localStorage.getItem("disablePopups") === "true"; //stores the settings in local storage
+        const perUserKey = settingsKey("disablePopups"); //loads the setting preferences for the current user
+        const globalVal = localStorage.getItem("disablePopups");
+        if (localStorage.getItem(perUserKey) === null && globalVal !== null) {
+            localStorage.setItem(perUserKey, globalVal); //ensures that if a user had previously set the global disable popups setting, it will be account specific
+            localStorage.removeItem("disablePopups");
+        }
+        const disablePopups = localStorage.getItem(perUserKey) === "true"; //user-scoped setting
         const closeOnExit = localStorage.getItem("closeOnExit") === "true";
         const rememberLogin = localStorage.getItem("rememberLogin") !== "false";
         disablePopupsToggle.checked = disablePopups;
@@ -212,7 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
         rememberLoginToggle.checked = rememberLogin;
     }
     function saveSettings() {
-        localStorage.setItem("disablePopups", disablePopupsToggle.checked.toString()); //saves the settings to local storage
+        localStorage.setItem(settingsKey("disablePopups"), disablePopupsToggle.checked.toString());
         localStorage.setItem("closeOnExit", closeOnExitToggle.checked.toString());
         localStorage.setItem("rememberLogin", rememberLoginToggle.checked.toString());
     }
@@ -323,7 +335,8 @@ window.addEventListener("DOMContentLoaded", () => {
         startBtn.disabled = true; //disables the start button 
         startBtn.classList.add("disabled");
         saveTimeGoal(formatTime(remainingSeconds)); //sends the current time to the save recent time goal function
-        const disablePopups = localStorage.getItem("disablePopups") === "true"; //checks if popups are disabled
+        const userId = localStorage.getItem("userId") ?? "guest";
+        const disablePopups = localStorage.getItem(`disablePopups_${userId}`) === "true"; //checks if popups are disabled for the current user
         if (!disablePopups) { //only show popup if not disabled
             window.popupAPI.showPopup({
                 timeText: formatTime(remainingSeconds), //shows popup when timer is started
@@ -337,7 +350,8 @@ window.addEventListener("DOMContentLoaded", () => {
             remainingSeconds--;
             timeDisplay.textContent = formatTime(remainingSeconds);
             if (remainingSeconds === nextPopupAt && remainingSeconds > 0) { //shows pop when the timer detects half an hour
-                const disablePopups = localStorage.getItem("disablePopups") === "true"; //checks if popups are disabled
+                const userId = localStorage.getItem("userId") ?? "guest";
+                const disablePopups = localStorage.getItem(`disablePopups_${userId}`) === "true"; //checks if popups are disabled for current user
                 if (!disablePopups) { //only show popup if not disabled
                     window.popupAPI.showPopup({
                         timeText: formatTime(remainingSeconds), //shows the remaining time
@@ -351,7 +365,8 @@ window.addEventListener("DOMContentLoaded", () => {
                 startBtn.disabled = false; //re enables button when time runs out
                 startBtn.classList.remove("disabled");
                 timeDisplay.textContent = "00:00:00";
-                const disablePopups = localStorage.getItem("disablePopups") === "true"; //checks if popups are disabled
+                const userId = localStorage.getItem("userId") ?? "guest";
+                const disablePopups = localStorage.getItem(`disablePopups_${userId}`) === "true"; //checks if popups are disabled for current user
                 if (!disablePopups) { //only show popup if not disabled
                     window.popupAPI.showPopup({
                         timeText: "00:00:00",

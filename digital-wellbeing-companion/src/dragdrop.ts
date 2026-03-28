@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     closeBtn?.addEventListener("click", closeGame);  //x button to close the game
-    gameOverlay?.addEventListener("click", closeGame);
 
     const DEFAULT_TIME_SECONDS = 60; //user have a minute to complete the game
     let timerInterval: number | null = null;
