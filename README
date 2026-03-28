@@ -33,11 +33,12 @@ Installation and usage instructions:
 3. Run and build using the 'npm start' in package manager console.
 
 4. Once in the app you can:
-  -Edit profile infomation by clicking the edit profile button then reclicking to save.	
-  -Use the slider on the time goal section to set a duration then press the start button.
-  -Access any of the minigames by pressing the start button underneath their names.
-  -Hide the application by pressing the minimise button (in red) and then can re-open the app using shortcut ALT + a.
-  -Settings can be opened by clicking the cog icon in the top right and can used to logout from the app.
+  - Edit profile infomation by clicking the edit profile button then reclicking to save.	
+  - Use the slider on the time goal section to set a duration then press the start button.
+  - Access any of the minigames by pressing the start button underneath their names.
+  - Hide the application by pressing the minimise button (in red) and then can re-open the app using shortcut ALT + a.
+  - Settings can be opened by clicking the cog icon in the top right and can used to logout from the app.
+  - Keep track of your progress via points and your daily streak.
 
 Future improvements (As of current):
 - Adding a mobile version of the app to phones.
@@ -45,6 +46,7 @@ Future improvements (As of current):
 - Adding a scoring system when users successfully meet their time goals.
 - Minor bug fixes.
 - Allow for password editing and forgot password feature.	
+- Overhaul mini-games to make them harder for older users.
 
 Author:
 Will Keogh
