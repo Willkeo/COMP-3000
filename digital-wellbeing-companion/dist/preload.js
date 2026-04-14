@@ -25,22 +25,4 @@ electron_1.contextBridge.exposeInMainWorld("appTrackerAPI", {
     onFocusUpdate: (callback) => electron_1.ipcRenderer.on("app-focus-update", (_event, data) => callback(data)),
     onReset: (callback) => electron_1.ipcRenderer.on("app-time-reset", () => callback()),
 });
-// Prevent global listeners from interfering with typing.
-// When an editable element has focus we stop propagation of keydown events
-// (capture-phase) so window/document/game-level handlers don't steal keys.
-window.addEventListener("DOMContentLoaded", () => {
-    document.addEventListener("keydown", (e) => {
-        const target = e.target;
-        if (!target)
-            return;
-        const tag = target.tagName;
-        const isEditable = tag === "INPUT" ||
-            tag === "TEXTAREA" ||
-            target.isContentEditable === true;
-        if (isEditable) {
-            // Prevent other listeners from intercepting typing while user edits.
-            e.stopPropagation();
-        }
-    }, true); // capture phase
-});
 //# sourceMappingURL=preload.js.map
